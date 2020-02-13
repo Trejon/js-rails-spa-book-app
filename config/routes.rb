@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
-  resources :reviews
-  resources :books
-  resources :lists
+  # resources :reviews
+  resources :books do
+    resource :reviews
+  end
+
+  resources :lists do
+    resource :books
+  end
+
+  resources :users do
+    resource :reviews
+    resource :lists
+  end
+
+
   # devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
    root to: "home#index"
