@@ -1,4 +1,4 @@
-class ListsController < ApplicationController
+class Api::V1::ListsController < ApplicationController
     before_action :authenticate_user!
 
     def index
