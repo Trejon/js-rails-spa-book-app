@@ -1,5 +1,4 @@
 Fabricator(:list) do
-  name        "MyString"
-  description "MyText"
-  user        nil
+  name { Faker::Name.name }
+  description { '' }
 end
