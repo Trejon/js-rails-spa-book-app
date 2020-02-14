@@ -17,10 +17,11 @@ class Navbar extends PageManager {
 
   handleClick(e) {
     if(e.target.tagName === 'A'){
+      e.preventDefault()
       const route = e.target.id.split('-')[0]
-      this.redirect(route)
+      if(route != this.currentPage()){ this.redirect(route) }
+    }
   }
-}
 
   get staticHTML(){
     if (this.is_authenticated){
@@ -31,12 +32,12 @@ class Navbar extends PageManager {
           <div class="left hide-on-small-and-down" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <li><a id="books-link" href="#"><i class="material-icons left">collections_bookmark</i>Books</a></li>
+                <li><a id="book-link" href="#"><i class="material-icons left">collections_bookmark</i>Books</a></li>
               <li class="nav-item">
-                <a class="nav-link" id="lists-link" href="#">Lists</a>
+                <a class="nav-link" id="list-link" href="#">Lists</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="reviews-link" href="#">Reviews</a>
+                <a class="nav-link" id="review-link" href="#">Reviews</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="logout-link" href="#">Log Out</a>
