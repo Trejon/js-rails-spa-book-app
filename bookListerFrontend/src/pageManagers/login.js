@@ -1,7 +1,44 @@
 class LoginPage extends PageManager{
 
+  constructor(container, adapter){
+      super(container)
+      this.adapter = new LoginAdapter(adapter)
+  }
+
+  initBindingsAndEventListeners(){
+    this.form = this.container.querySelector('form#login-form')
+
+    this.form.addEventListener('submit', this.handleSubmit.bind(this))
+  }
+
+  handleSubmit(e){
+        e.preventDefault()
+        const [email, password] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
+        const params = {
+            user: {email, password}
+        }
+        this.adapter.login(params)
+      }
 
 
+  get staticHTML(){
+      return (`
+        <h2>Log In</h2>
+        <form id="login-form">
+        <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email" required >
+        </div>
+        <div class="form-group col-md-6">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" required>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+        `)
+      }
 
 
 }

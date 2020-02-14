@@ -1,16 +1,31 @@
 class WelcomePage extends PageManager {
 
 
-  initBindingsAndEventListeners() {
+    initBindingsAndEventListeners() {
+      this.signupLink = this.container.querySelector('a#signup')
+      this.loginLink = this.container.querySelector('a#login')
 
-  }
-
-  get staticHTML(){
-    return (`
-      <h1>Welcome to <a href='#'>Book</a> Lister</h1>
-      <h4>Please <a href='#' id='signup'>Signup</a> or <a href='#' id="login">Login</a></h4>
-      `)
+      this.signupLink.addEventListener('click', this.handleSignupClick.bind(this))
+      this.loginLink.addEventListener('click', this.handleLoginClick.bind(this))
     }
+
+      handleLoginClick(e){
+          e.preventDefault()
+          this.redirect('login')
+        }
+
+      handleSignupClick(e){
+          e.preventDefault()
+          this.redirect('signup')
+        }
+
+
+    get staticHTML(){
+      return (`
+        <h1>Welcome to <a href='#'>Book</a> Lister</h1>
+        <h4>Please <a href='#' id='signup'>Signup</a> or <a href='#' id="login">Login</a></h4>
+        `)
+      }
 
 
 }
