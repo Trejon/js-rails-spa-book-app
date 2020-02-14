@@ -12,20 +12,18 @@ class LoginPage extends PageManager{
   }
 
   async handleSubmit(e){
-        e.preventDefault()
-        const [email, password] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
-        const params = {
-            user: {email, password}
-        }
-        try{
-            await this.adapter.login(params)
-            this.redirect('profile')
-        }catch(err){
-            this.handleAlert(err, 'danger')
-        }
-
+      e.preventDefault()
+      const [email, password] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
+      const params = {
+        user: {email, password}
       }
-
+      try{
+        await this.adapter.login(params)
+        this.redirect('profile')
+      }catch(err){
+        this.handleError(err)
+      }
+  }
 
   get staticHTML(){
       return (`
