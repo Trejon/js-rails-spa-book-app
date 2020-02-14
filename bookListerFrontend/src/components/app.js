@@ -1,8 +1,16 @@
 class App{
   constructor(){
 
+    this.adapter = new BaseAdapter()
+
     this.initBindingsAndEventListeners()
-    this.renderPage(new SignupPage(this.pageContainer))
+    this.router = new Router({
+      'welcome': new WelcomePage(this.pageContainer, this.adapter),
+      'login': new LoginPage(this.pageContainer, this.adapter),
+      'signup': new SignupPage(this.pageContainer, this.adapter)
+    })
+    this.router.assignCallback(this.pageManagerRedircet.bind(this))
+    this.renderPage('welcome')
   }
 
   initBindingsAndEventListeners() {
@@ -12,8 +20,12 @@ class App{
     this.alertContainer = document.querySelector('#alert-container')
   }
 
+  pageManagerRedircet(page){
+    this.renderPage(page)
+  }
+
   renderPage(page){
-    page.render()
+    this.router.render(page)
   }
 
 }
