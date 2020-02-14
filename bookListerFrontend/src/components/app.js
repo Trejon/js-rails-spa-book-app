@@ -10,6 +10,8 @@ class App{
       'signup': new SignupPage(this.pageContainer, this.adapter),
       'profile': new ProfilePage(this.pageContainer, this.adapter)
     })
+    const navbar = new Navbar(this.navbarContainer, this.adapter)
+    this.router.assignNavbar(navbar)
     this.router.assignCallback(this.pageManagerRedircet.bind(this))
     this.renderPage('welcome')
   }
