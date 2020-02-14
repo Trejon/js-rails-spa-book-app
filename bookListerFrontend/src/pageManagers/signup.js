@@ -10,8 +10,14 @@ class SignupPage extends PageManager{
   handleSubmit(e) {
     e.preventDefault()
     const inputs = Array.from(e.target.querySelectorAll('input'))
-    const [email, password, name] = inputs.map(input => input.value)
-    console.log(email, name)
+    const [firstName, lastName, email, password] = inputs.map(input => input.value)
+    const name = `${firstName} ${lastName}`
+    const params = {
+        user: {
+          name, email, password
+        }
+    }
+    this.adapter.signup(params)
   }
 
 
@@ -19,6 +25,18 @@ class SignupPage extends PageManager{
     return (`
       <h2>Sign Up</h2>
       <form class="col s12" id="signup-form">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="first-name">First Name</label>
+          <input type="text" class="validate" id="first-name" placeholder="First Name" required>
+        </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="last-name">Last Name</label>
+            <input type="text" class="validate" id="last-name" placeholder="Last Name" required>
+          </div>
+          </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="email">Email</label>
@@ -29,13 +47,7 @@ class SignupPage extends PageManager{
             <input type="password" class="validate" id="password" placeholder="Password" required>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="name">Name</label>
-            <input type="text" class="validate" id="name" placeholder="Name" required>
-          </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Sign in</button>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
       </form>`
 )
   }
