@@ -12,18 +12,24 @@ class SignupPage extends PageManager{
       this.form.addEventListener('submit', this.handleSubmit.bind(this))
     }
 
-  handleSubmit(e) {
-      e.preventDefault()
-      const inputs = Array.from(e.target.querySelectorAll('input'))
-      const [firstName, lastName, email, password] = inputs.map(input => input.value)
-      const name = `${firstName} ${lastName}`
-      const params = {
-          user: {
-            name, email, password
-          }
-      }
-      this.adapter.signup(params)
-  }
+    async handleSubmit(e) {
+        e.preventDefault()
+        const inputs = Array.from(e.target.querySelectorAll('input'))
+        const [firstName, lastName, email, password] = inputs.map(input => input.value)
+        const name = `${firstName} ${lastName}`
+        const params = {
+            user: {
+              name, email, password
+            }
+        }
+        try{
+            await this.adapter.signup(params)
+            this.redirect('profile')
+        }catch(err){
+            alert(err)
+        }
+
+    }
 
 
     get staticHTML() {
