@@ -3,6 +3,7 @@ class ProfilePage extends PageManager{
   constructor(container, adapter){
       super(container)
       this.adapter =  new ProfileAdapter(adapter)
+      this.user = null;
     }
 
     initBindingsAndEventListeners() {
