@@ -19,16 +19,16 @@ class SignupPage extends PageManager{
         const name = `${firstName} ${lastName}`
         const params = {
             user: {
-              name, email, password
+               email, password, name
             }
         }
         try{
             await this.adapter.signup(params)
             this.redirect('profile')
         }catch(err){
-            this.handleError(err)
-          }
-      }
+            this.handleError(err.msg)
+        }
+    }
 
     get staticHTML() {
         return (`
