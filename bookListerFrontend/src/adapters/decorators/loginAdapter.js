@@ -13,15 +13,14 @@ class LoginAdapter{
         return this.baseAdapter.headers
       }
 
-    async login(params){
-      const res = await fetch(`${this.baseURL}/login`, {
-            method: 'POST',
-            headers: this.headers,
-            body: JSON.stringify(params)
-        })
-          this.baseAdapter.checkStatus(res)
-          this.baseAdapter.token = res.headers.get('authorization').split(' ')[1]
+      async login(params){
+            const res = await fetch(`${this.baseURL}/login`, {
+              method: 'POST',
+              headers: this.headers,
+              body: JSON.stringify(params)
+            })
+            await this.baseAdapter.checkStatus(res)
+            this.baseAdapter.token = res.headers.get('authorization').split(' ')[1]
+        }
 
-      }
-
-  }
+    }

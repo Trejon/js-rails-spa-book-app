@@ -13,4 +13,13 @@ class ProfileAdapter{
       return this.baseAdapter.headers
     }
 
+    async getLists() {
+        const res = await fetch(`${this.baseURL}/lists`, {
+            headers: this.headers
+        })
+        await this.baseAdapter.checkStatus(res)
+        return await res.json()
+      }
+
+
   }
