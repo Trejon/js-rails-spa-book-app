@@ -1,5 +1,5 @@
 class PageManager{
-  constructor(container, adapter){
+  constructor(container){
     this.container = container;
   }
 
@@ -7,14 +7,14 @@ class PageManager{
     return null
   }
 
-  handleError(err) {
-      if(err.type === "Authorization Error"){
-        this.handleAlert(err.msg)
-        this.redirect('welcome')
-      } else {
-        this.handleAlert(err)
-      }
-  }
+  handleError(err){
+        if(err.type === "Authorizaiton Error"){
+            this.handleAlert(err.msg)
+            this.redirect('welcome')
+        }else{
+            this.handleAlert(err)
+        }
+    }
 
   render() {
       this.container.innerHTML = this.staticHTML

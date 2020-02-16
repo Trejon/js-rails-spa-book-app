@@ -10,6 +10,15 @@ class ProfilePage extends PageManager{
       return null
     }
 
+  async fetchAndRenderPageResources() {
+    try {
+      const lists = await this.adapter.getLists()
+      this.container.innerHTML = lists.map(l => l.name).join('')
+    } catch(err) {
+        this.handleError(err)
+    }
+  }
+
 
     get staticHTML() {
         return (`
