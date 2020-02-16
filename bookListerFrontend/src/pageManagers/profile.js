@@ -15,10 +15,15 @@ class ProfilePage extends PageManager{
       userList.addEventListener('click', this.handleListClick.bind(this))
   }
 
-  listBindingsAndEventListeners() {
-    const editButton = this.container.querySelector('button')
-    editButton.addEventListener('click', this.formalizeList.bind(this))
-  }
+    listBindingsAndEventListeners() {
+      const editButton = this.container.querySelector('button')
+      editButton.addEventListener('click', this.formalizeList.bind(this))
+    }
+
+    listFormBindingsAndEventListeners(){
+      const form = this.container.querySelector('form')
+      form.addEventListener('submit', this.handleUpdateList.bind(this))
+    }
 
   handleListClick(e) {
     if(e.target.tagName === 'A'){
@@ -34,7 +39,7 @@ formalizeList(e){
       const list = this.user.lists.find(list => list.id == id)
       if(list){
           this.container.innerHTML = list.formHTML
-          // this.listBindingsAndEventListeners()
+          this.listFormBindingsAndEventListeners()
       } else {
           this.handleError({
             type: "404 Not Found",
@@ -42,6 +47,28 @@ formalizeList(e){
           })
         }
       }
+
+      async handleUpdateList(e){
+            e.preventDefault()
+            const [id, name] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
+            const description = e.target.querySelector('textarea').value
+
+            const params = { name, description, id }
+            const list = this.getListById(id)
+            const oldList = new List({id, name, description})
+            list.name = name
+            list.description = description
+            this.renderList(list)
+            try{
+                const {id, name, description} = await this.adapter.updateList(params)
+            }catch(err){
+                list.name = oldList.name
+                list.description = oldList.description
+                this.renderList(list)
+                this.handleError(err)
+            }
+        }
+
 
   async fetchAndRenderPageResources() {
     try {
