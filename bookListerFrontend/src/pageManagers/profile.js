@@ -10,6 +10,39 @@ class ProfilePage extends PageManager{
       return null
     }
 
+    profileBindingAndEventListeners() {
+      const userList = this.container.querySelector('ul')
+      userList.addEventListener('click', this.handleListClick.bind(this))
+  }
+
+  listBindingsAndEventListeners() {
+    const editButton = this.container.querySelector('button')
+    editButton.addEventListener('click', this.formalizeList.bind(this))
+  }
+
+  handleListClick(e) {
+    if(e.target.tagName === 'A'){
+      const listId = e.target.dataset.id
+      const list = this.getListById(listId)
+      this.renderList(list)
+    }
+}
+
+formalizeList(e){
+      e.preventDefault()
+      const id = e.target.dataset.id
+      const list = this.user.lists.find(list => list.id == id)
+      if(list){
+          this.container.innerHTML = list.formHTML
+          // this.listBindingsAndEventListeners()
+      } else {
+          this.handleError({
+            type: "404 Not Found",
+            msg: "List was not found"
+          })
+        }
+      }
+
   async fetchAndRenderPageResources() {
     try {
       const userObj = await this.adapter.getUser()
@@ -20,6 +53,10 @@ class ProfilePage extends PageManager{
     }
   }
 
+  getListById(id) {
+    return this.user.lists.find(list => list.id == id)
+  }
+
 
     get staticHTML() {
         return (`
@@ -27,8 +64,21 @@ class ProfilePage extends PageManager{
           `)
       }
 
+      renderList(list){
+        if(list){
+          this.container.innerHTML = list.showHTML
+          this.listBindingsAndEventListeners()
+        } else {
+          this.handleError({
+            type: "404 Not Found",
+            msg: "List was not found"
+          })
+        }
+  }
+
     renderUser() {
       this.container.innerHTML = this.user.profileHTML
+      this.profileBindingAndEventListeners()
     }
 
 
