@@ -13,8 +13,26 @@ class ProfileAdapter{
       return this.baseAdapter.headers
     }
 
-    async getLists() {
-        const res = await fetch(`${this.baseURL}/lists`, {
+    async updateList(params) {
+      const { name, description, id} = params
+      const url = `${this.baseURL}/lists/${id}`
+      const body = {
+        list: {
+          name,
+          description
+        }
+      }
+      const res = await fetch(url, {
+        method: 'PATCH',
+        headers: this.headers,
+        body: JSON.stringify(body)
+      })
+      await this.baseAdapter.checkStatus(res)
+      return await res.json()
+  }
+
+    async getUser() {
+        const res = await fetch(`${this.baseURL}/profile`, {
             headers: this.headers
         })
         await this.baseAdapter.checkStatus(res)
