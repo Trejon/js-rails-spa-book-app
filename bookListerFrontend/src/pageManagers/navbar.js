@@ -37,7 +37,11 @@ class Navbar extends PageManager {
           <div class="left hide-on-small-and-down" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <li><a id="book-link" href="#"><i class="material-icons left">collections_bookmark</i>Books</a></li>
+              <li class="nav-item">
+                <li><a id="profile-link" href="#"><i class="material-icons left">collections_bookmark</i>Profile</a></li>
+                <li class="nav-item">
+                  <a class="nav-link" id="book-link" href="#">Books</a>
+                </li>
               <li class="nav-item">
                 <a class="nav-link" id="list-link" href="#">Lists</a>
               </li>

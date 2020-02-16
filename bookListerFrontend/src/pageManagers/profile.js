@@ -12,8 +12,9 @@ class ProfilePage extends PageManager{
 
   async fetchAndRenderPageResources() {
     try {
-      const lists = await this.adapter.getLists()
-      this.container.innerHTML = lists.map(l => l.name).join('')
+      const userObj = await this.adapter.getUser()
+      this.user = new User(userObj)
+      this.renderUser()
     } catch(err) {
         this.handleError(err)
     }
@@ -22,9 +23,13 @@ class ProfilePage extends PageManager{
 
     get staticHTML() {
         return (`
-          <h1>Your Profile Page</h1>
+          <div class="loader"></div>
           `)
       }
+
+    renderUser() {
+      this.container.innerHTML = this.user.profileHTML
+    }
 
 
 }
