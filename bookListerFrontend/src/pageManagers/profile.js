@@ -11,8 +11,12 @@ class ProfilePage extends PageManager{
     }
 
     profileBindingAndEventListeners() {
-      const userList = this.container.querySelector('ul')
+      const userList = this.container.querySelector('ul#lists')
       userList.addEventListener('click', this.handleListClick.bind(this))
+      const userBooks = this.container.querySelector('ul#books')
+      userBooks.addEventListener('click', this.handleBookClick.bind(this))
+      const userReviews = this.container.querySelector('ul#reviews')
+      userReviews.addEventListener('click', this.handleReviewClick.bind(this))
       // const createButton = this.container.querySelector('button')
       // createButton.addEventListener('click', this.handleCreateListClick.bind(this))
     }
@@ -35,6 +39,23 @@ class ProfilePage extends PageManager{
         this.renderList(list)
         }
       }
+
+      handleBookClick(e) {
+        if(e.target.tagName === 'A'){
+          const bookId = e.target.dataset.id
+          const book = this.getBookById(bookId)
+          this.renderBook(book)
+          }
+        }
+
+        handleReviewClick(e) {
+          if(e.target.tagName === 'A'){
+            const reviewId = e.target.dataset.id
+            const review = this.getReviewById(reviewId)
+            this.renderReview(review)
+            }
+          }
+
 
     // handleCreateListClick(e) {
     //   e.preventDefault()
@@ -94,6 +115,14 @@ class ProfilePage extends PageManager{
       return this.user.lists.find(list => list.id == id)
     }
 
+    getBookById(id) {
+      return this.user.books.find(book => book.id == id)
+    }
+
+    getReviewById(id) {
+      return this.user.reviews.find(review => review.id == id)
+    }
+
     get staticHTML() {
         return (`
           <div class="loader"></div>
@@ -111,6 +140,31 @@ class ProfilePage extends PageManager{
           })
         }
       }
+
+      renderBook(book){
+          if(book){
+            this.container.innerHTML = book.showHTML
+            // this.listBindingsAndEventListeners()
+          } else {
+            this.handleError({
+              type: "404 Not Found",
+              msg: "List was not found"
+            })
+          }
+        }
+
+        renderReview(review){
+            if(review){
+              this.container.innerHTML = review.showHTML
+              // this.reviewBindingsAndEventListeners()
+            } else {
+              this.handleError({
+                type: "404 Not Found",
+                msg: "List was not found"
+              })
+            }
+          }
+
 
     renderUser() {
       this.container.innerHTML = this.user.profileHTML
