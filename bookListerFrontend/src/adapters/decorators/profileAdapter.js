@@ -31,6 +31,24 @@ class ProfileAdapter{
       return await res.json()
   }
 
+  async createList(params) {
+    const { name, description} = params
+    const url = `${this.baseURL}/lists`
+    const body = {
+      list: {
+        name,
+        description
+      }
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify(body)
+    })
+    await this.baseAdapter.checkStatus(res)
+    return await res.json()
+}
+
     async getUser() {
         const res = await fetch(`${this.baseURL}/profile`, {
             headers: this.headers
