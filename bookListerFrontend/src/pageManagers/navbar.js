@@ -11,11 +11,12 @@ class Navbar extends PageManager {
 
   initBindingsAndEventListeners(){
 
-    this.container.addEventListener('click', this.handleClick.bind(this))
+  this.container.addEventListener('click', this.handleClick.bind(this))
 
   }
 
   handleClick(e) {
+    // console.log(e.target.id.split('-')[0])
   if(e.target.tagName === 'A'){
     e.preventDefault()
     if(e.target.id != 'logout-link'){
@@ -33,7 +34,7 @@ class Navbar extends PageManager {
       return (`
         <nav>
         <nav class="nav-wrapper black">
-          <a href="#" class="brand-logo right">Book Lister</a>
+          <a href="#" id="lister-home" class="brand-logo right">Book Lister</a>
           <div class="left hide-on-small-and-down" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
