@@ -24,6 +24,7 @@ class List{
                 </div>
               <button type="submit" class="btn btn-primary">${list ? 'Update' : 'Create'}</button>
             </form>
+
             `)
       }
 

@@ -11,7 +11,11 @@ class App{
       'welcome': new WelcomePage(this.pageContainer, this.adapter),
       'login': new LoginPage(this.pageContainer, this.adapter),
       'signup': new SignupPage(this.pageContainer, this.adapter),
-      'profile': new ProfilePage(this.pageContainer, this.adapter)
+      'profile': new ProfilePage(this.pageContainer, this.adapter),
+      'book': new BookPage(this.pageContainer, this.adapter),
+      'list': new ListPage(this.pageContainer, this.adapter),
+      'review': new ReviewPage(this.pageContainer, this.adapter),
+      'lister': new ProfilePage(this.pageContainer, this.adapter)
     })
     const navbar = new Navbar(this.navbarContainer, this.adapter)
 
