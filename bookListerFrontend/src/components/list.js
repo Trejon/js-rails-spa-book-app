@@ -45,5 +45,12 @@ class List{
         return `<li><a href="#" data-id=${this.id}>${this.name} - ${this.description}</a></li>`
       }
 
+      get listsHTML() {
+        return (`
+          <h2>Welcome to your lists page</h2>
+          <h3>Your lists:</h3>
+          `)
+      }
+
 
 }
