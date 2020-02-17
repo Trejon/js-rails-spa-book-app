@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        reviews = Review.all
+        reviews = current_user.reviews
         render json: reviews.to_json(include: [:book] )
     end
 

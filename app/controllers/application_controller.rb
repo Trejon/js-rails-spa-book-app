@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  # respond_to :json
+
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from AuthorizationError, with: :unauthorized_error
 
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::API
 
     def validation_error(resource)
       render json: {
-          error:{
+          error: {
               status: '400',
               title: 'Bad Request',
               detail: resource.errors[:detail],
