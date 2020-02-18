@@ -16,7 +16,6 @@ class Navbar extends PageManager {
   }
 
   handleClick(e) {
-    // console.log(e.target.id.split('-')[0])
   if(e.target.tagName === 'A'){
     e.preventDefault()
     if(e.target.id != 'logout-link'){

@@ -43,6 +43,4 @@ class LoginPage extends PageManager{
         </form>
         `)
       }
-
-
 }

@@ -1,6 +1,5 @@
 class WelcomePage extends PageManager {
 
-
     initBindingsAndEventListeners() {
       this.signupLink = this.container.querySelector('a#signup')
       this.loginLink = this.container.querySelector('a#login')
@@ -26,6 +25,4 @@ class WelcomePage extends PageManager {
         <h5>Please <a href='#' id='signup'>Signup</a> or <a href='#' id="login">Login</a></h5>
         `)
       }
-
-
 }

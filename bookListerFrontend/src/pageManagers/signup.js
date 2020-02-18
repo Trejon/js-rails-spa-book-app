@@ -31,33 +31,31 @@ class SignupPage extends PageManager{
     }
 
     get staticHTML() {
-        return (`
-          <h2>Sign Up</h2>
-          <form class="col s12" id="signup-form">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="first-name">First Name</label>
-              <input type="text" class="validate" id="first-name" placeholder="First Name" required>
-            </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="last-name">Last Name</label>
-                <input type="text" class="validate" id="last-name" placeholder="Last Name" required>
-              </div>
-              </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="email">Email</label>
-                <input type="email" class="validate" id="email" placeholder="Email" required >
-              </div>
-              <div class="form-group col-md-6">
-                <label for="password">Password</label>
-                <input type="password" class="validate" id="password" placeholder="Password" required>
-              </div>
-            </div>
-              <button type="submit" class="btn btn-primary">Sign Up</button>
-          </form>`
-        )
+        return (` <h2>Sign Up</h2>
+                  <form class="col s12" id="signup-form">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="first-name">First Name</label>
+                      <input type="text" class="validate" id="first-name" placeholder="First Name" required>
+                    </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" class="validate" id="last-name" placeholder="Last Name" required>
+                      </div>
+                      </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" class="validate" id="email" placeholder="Email" required >
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="password">Password</label>
+                        <input type="password" class="validate" id="password" placeholder="Password" required>
+                      </div>
+                    </div>
+                      <button type="submit" class="btn btn-primary">Sign Up</button>
+                  </form>`)
       }
 }
