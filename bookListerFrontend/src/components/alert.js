@@ -11,7 +11,7 @@ class Alert {
 
     render(msg, type, timeout){
         const html = `
-            <div class="alert alert-${type}" role="alert">
+            <div class="alert alert-${type} red-text" role="alert">
                 ${msg}
             </div>
             `
@@ -19,7 +19,6 @@ class Alert {
         this.timeout = setTimeout(() => {
           this.container.innerHTML = ''
         }, timeout)
-        
-        }
 
+        }
   }

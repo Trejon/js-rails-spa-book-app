@@ -8,15 +8,16 @@ class Review{
         this.book_id = book_id
       }
 
-      get reviewsHTML() {
-        return (`
-          <h2>Welcome to your reviews page</h2>
-          <h3>Your reviews:</h3>
-          `)
-      }
+      // get reviewsHTML() {
+      //   return (`
+      //     <h2>Welcome to your reviews page</h2>
+      //     <h3>Your reviews:</h3>
+      //     <h5>${this.rating} - ${this.content}</h5>
+      //     `)
+      // }
 
       get liAndLinkHTML() {
-        return `<li><a href="#" data-id=${this.id}>${this.rating} - ${this.content}</a></li>`
+        return `<br><li><a href="#" data-id=${this.id}>${this.rating} - ${this.content}</a></li>`
       }
 
       get showHTML() {
@@ -28,6 +29,4 @@ class Review{
             <button data-id=${this.id} id="edit-list">Edit</button>
           `)
         }
-
-
   }

@@ -24,7 +24,6 @@ class List{
                 </div>
               <button type="submit" class="btn btn-primary">${list ? 'Update' : 'Create'}</button>
             </form>
-
             `)
       }
 
@@ -42,15 +41,14 @@ class List{
         }
 
       get liAndLinkHTML() {
-        return `<li><a href="#" data-id=${this.id}>${this.name} - ${this.description}</a></li>`
+        return `<br><li><a href="#" data-id=${this.id}>${this.name} - ${this.description}</a></li>`
       }
 
       get listsHTML() {
         return (`
           <h2>Welcome to your lists page</h2>
-          <h3>Your lists:</h3>
+          <h3>Here's Your lists:</h3>
+          <br>
           `)
       }
-
-
 }
