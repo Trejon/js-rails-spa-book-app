@@ -10,6 +10,7 @@ class Alert {
     }
 
     render(msg, type, timeout){
+      window.scrollTo(0, 0)
         const html = `
             <div class="alert alert-${type} red-text" role="alert">
                 ${msg}

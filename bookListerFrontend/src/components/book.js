@@ -1,12 +1,13 @@
 class Book{
     constructor(book){
-      const { id, title, author, genre, description, page_count } = book
+      const { id, title, author, genre, description, page_count, reviews} = book
         this.id = id
         this.title = title
         this.author = author
         this.genre = genre
         this.description = description
         this.page_count = page_count
+        this.reviews = reviews
       }
 
       static formHTML(book) {

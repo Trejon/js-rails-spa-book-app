@@ -1,5 +1,6 @@
 class App{
   constructor(){
+    
 
     this.adapter = new BaseAdapter()
 

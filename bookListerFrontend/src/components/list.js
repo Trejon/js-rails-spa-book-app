@@ -1,10 +1,12 @@
 class List{
     constructor(list){
-      const { id, name, description } = list
+      const { id, name, description, books } = list
         this.id = id
         this.name = name
         this.description = description
+        this.books = books
       }
+
 
     static formHTML(list) {
           return(`
@@ -13,7 +15,7 @@ class List{
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Name" value=${list ? list.name : ''} required >
+                    <textarea class="form-control" id="name" rows="3">${list ? list.name : ''}</textarea>
                   </div>
                 </div>
                 <div class="form-row">
@@ -37,6 +39,7 @@ class List{
             <h2>${this.name}</h2>
             <p>Description:\n${this.description ? this.description : "None"}</p>
             <button data-id=${this.id} id="edit-list">Edit</button>
+            <button data-id=${this.id} id="delete-list">Delete</button>
           `)
         }
 
