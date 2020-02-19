@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_183702) do
+ActiveRecord::Schema.define(version: 2020_02_19_222352) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -18,10 +18,14 @@ ActiveRecord::Schema.define(version: 2020_02_13_183702) do
     t.string "genre"
     t.text "description"
     t.integer "page_count"
-    t.integer "list_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["list_id"], name: "index_books_on_list_id"
+  end
+
+  create_table "books_lists", id: false, force: :cascade do |t|
+    t.integer "list_id", null: false
+    t.integer "book_id", null: false
+    t.index ["list_id", "book_id"], name: "index_books_lists_on_list_id_and_book_id", unique: true
   end
 
   create_table "jwt_blacklist", force: :cascade do |t|
@@ -64,7 +68,6 @@ ActiveRecord::Schema.define(version: 2020_02_13_183702) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "books", "lists"
   add_foreign_key "lists", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
