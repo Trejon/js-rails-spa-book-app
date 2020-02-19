@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-  belongs_to :list
+  has_and_belongs_to_many :lists
   has_many :reviews, dependent: :destroy
-  has_many :users, through: :lists
+  has_many :users, through: :reviews
 end
