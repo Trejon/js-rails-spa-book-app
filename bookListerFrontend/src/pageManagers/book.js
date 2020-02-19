@@ -7,7 +7,10 @@ class BookPage extends PageManager{
   }
 
   initBindingsAndEventListeners(){
-    return null
+    console.log(this)
+    const form = this.container.querySelector('form')
+    if (form){
+    form.addEventListener('submit', this.handleBookSubmit.bind(this))}
   }
 
   get staticHTML() {
@@ -24,6 +27,7 @@ class BookPage extends PageManager{
             books.forEach(book => this.books.push(new Book(book)))
           })
         .then(() => this.renderBooks(this.adapter.books))
+        .then(() => this.initBindingsAndEventListeners())
       } catch(err) {
           this.handleError(err)
       }
@@ -39,18 +43,40 @@ class BookPage extends PageManager{
       this.renderNewForm()
     }
 
+    async handleBookSubmit(e) {
+         e.preventDefault()
+         const title = e.target.getElementsByTagName('textarea')[0].value
+         const author = e.target.getElementsByTagName('textarea')[1].value
+         const genre = e.target.getElementsByTagName('textarea')[2].value
+         const description = e.target.getElementsByTagName('textarea')[3].value
+         const page_count = e.target.querySelector('input').value
+         const params = {
+             book: {
+                title, author, genre, description, page_count
+             }
+         }
+         try{
+            await this.adapter.createBook(params)
+            console.log('I got here')
+            this.redirect('book')
+         }catch(err)  {
+           this.handleError(err)
+         }
+     }
+
     async handleUpdateBook(e){
           e.preventDefault()
           const id = this.container.querySelector('#hidden').value
-          const [title, author, genre, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+          const [title, author, genre, description, page_count] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
 
-          const params = { title, author, genre, description, id }
+          const params = { title, author, genre, description, page_count, id }
           const book = this.getBookById(id)
-          const oldBook = new Book({id, title, author, genre, description})
+          const oldBook = new Book({id, title, author, genre, description, page_count})
             book.title = title
             book.author = author
             book.genre = genre
             book.description = description
+            book.page_count = page_count
             this.renderBook(book)
             try{
                 const {id, title, author, genre, description} = await this.adapter.updateBook(params)

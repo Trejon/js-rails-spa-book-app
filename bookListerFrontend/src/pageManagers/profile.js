@@ -7,6 +7,7 @@ class ProfilePage extends PageManager{
     }
 
     initBindingsAndEventListeners() {
+
       return null
     }
 
@@ -32,6 +33,9 @@ class ProfilePage extends PageManager{
     bookBindingsAndEventListeners() {
       const editButton = this.container.querySelector('button')
       editButton.addEventListener('click', this.formalizeBook.bind(this))
+
+      // const deleteButton = this.container.querySelector('delete-button')
+      // deleteButton.addEventListener('click', this.deleteList.bind(this))
     }
 
     bookFormBindingsAndEventListeners(){
@@ -62,6 +66,11 @@ class ProfilePage extends PageManager{
             this.renderReview(review)
             }
           }
+
+          // deleteList(e){
+          //   e.preventDefault()
+          //   console.log('Delete')
+          // }
 
         formalizeList(e){
           e.preventDefault()
@@ -95,8 +104,8 @@ class ProfilePage extends PageManager{
 
           async handleUpdateList(e){
                 e.preventDefault()
-                const [id, name] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
-                const description = e.target.querySelector('textarea').value
+                const id = e.target.querySelector('input').value
+                const [name, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
 
                 const params = { name, description, id }
                 const list = this.getListById(id)

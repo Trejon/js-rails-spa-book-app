@@ -7,10 +7,9 @@ class ReviewPage extends PageManager{
   }
 
   initBindingsAndEventListeners(){
-    this.container.addEventListener('DOMContentLoaded', function() {
-    var elems = this.container.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems, options);
-  })
+    const form = this.container.querySelector('form')
+    if (form){
+    form.addEventListener('submit', this.handleReviewSubmit.bind(this))}
   }
 
   async fetchAndRenderPageResources(){
@@ -20,6 +19,7 @@ class ReviewPage extends PageManager{
           reviews.forEach(review => this.reviews.push(new Review(review)))
         })
       .then(() => this.renderReviews(this.adapter.reviews))
+      .then(() => this.initBindingsAndEventListeners())
     }catch(err){
       this.handleError(err)
     }
@@ -42,12 +42,30 @@ class ReviewPage extends PageManager{
     this.renderNewForm()
   }
 
+  async handleReviewSubmit(e) {
+       e.preventDefault()
+       const rating = e.target.querySelectorAll('input')[0].value
+       const content = e.target.querySelector('textarea').value
+       const date = e.target.querySelectorAll('input')[1].value
+       const params = {
+           review: {
+              rating, content, date
+           }
+       }
+       try{
+          await this.adapter.createReview(params)
+          this.redirect('review')
+       }catch(err)  {
+         this.handleError(err)
+       }
+   }
+
   renderNewForm() {
     this.container.innerHTML += `<form id="new-review-form">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="rating">Rating</label>
-            <input type="text" class="form-control" id="rating" placeholder="Name"  required >
+            <input type="text" class="form-control" id="rating" placeholder="Rating"  required >
           </div>
         </div>
         <div class="form-row">
@@ -58,8 +76,7 @@ class ReviewPage extends PageManager{
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="date">Date</label>
-             <input type="text" class="datepicker">
+             <input type="date" class="datepicker">
           </div>
         </div>
       <button id="new-list" type="submit" class="btn btn-primary">Add New Review</button>

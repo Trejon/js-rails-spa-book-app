@@ -3,14 +3,15 @@ class ListPage extends PageManager{
   constructor(container, adapter){
     super(container)
     this.adapter = new ListAdapter(adapter)
-    // this.initBindingsAndEventListeners()
     this.lists = []
   }
 
   initBindingsAndEventListeners(){
+    if(this.lists[0]){console.log(this.lists[0].books)}
     const form = this.container.querySelector('form')
     if (form){
     form.addEventListener('submit', this.handleListSubmit.bind(this))}
+
   }
 
   renderNewForm() {
@@ -46,11 +47,12 @@ class ListPage extends PageManager{
          await this.adapter.createList(params)
          this.redirect('list')
       }catch(err)  {
-        console.log(err)
+        this.handleError(err)
       }
   }
 
   get staticHTML() {
+    console.log(this)
     return (`
       <h2>Welcome to your lists page</h2>
       <h4>Your lists:</h4>
