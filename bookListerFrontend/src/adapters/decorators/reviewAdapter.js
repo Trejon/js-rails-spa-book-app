@@ -20,4 +20,16 @@ class ReviewAdapter{
       await this.baseAdapter.checkStatus(res)
       return await res.json()
     }
+
+    async createReview(params) {
+      console.log('first test')
+      const res = await fetch(`${this.baseURL}/reviews`, {
+        method: 'POST',
+        headers: this.headers,
+        body: JSON.stringify(params)
+      })
+      console.log('2nd test')
+      await this.baseAdapter.checkStatus(res)
+      return await res.json()
+    }
 }
