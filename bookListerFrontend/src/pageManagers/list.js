@@ -8,11 +8,14 @@ class ListPage extends PageManager{
   }
 
   initBindingsAndEventListeners(){
-    return null
+    const form = this.container.querySelector('form')
+    if (form){
+    form.addEventListener('submit', this.handleListSubmit.bind(this))}
   }
 
   renderNewForm() {
     this.container.innerHTML += `<form id="new-list-form">
+
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="name">Name</label>
@@ -30,20 +33,20 @@ class ListPage extends PageManager{
     `
   }
 
-  async handleListSubmit(e) {
+ async handleListSubmit(e) {
       e.preventDefault()
-      const inputs = Array.from(e.target.querySelectorAll('input'))
-      const [ listName, listDescription] = inputs.map(input => input.value)
+      const name = e.target.querySelector('input').value
+      const description = e.target.querySelector('textarea').value
       const params = {
           list: {
-             listName, listDescription
+             name, description
           }
       }
       try{
-          await this.adapter.createList(params)
-          this.redirect('list')
-      }catch(err){
-          this.handleError(err.msg)
+         await this.adapter.createList(params)
+         this.redirect('list')
+      }catch(err)  {
+        console.log(err)
       }
   }
 
