@@ -21,15 +21,13 @@ class ListAdapter{
       return await res.json()
     }
 
-    // async createList(params) {
-    //   const res = await fetch(`${this.baseURL}/lists`, {
-    //     method: 'POST',
-    //     headers: this.headers,
-    //     body: JSON.stringify(params)
-    //   })
-    //   await this.baseAdapter.checkStatus(res)
-    //   this.baseAdapter.token = res.headers.get('authorization').split(' ')[1]
-    // }
-
-
+    async createList(params) {
+      const res = await fetch(`${this.baseURL}/lists`, {
+        method: 'POST',
+        headers: this.headers,
+        body: JSON.stringify(params)
+      })
+      await this.baseAdapter.checkStatus(res)
+      return await res.json()
+    }
 }
