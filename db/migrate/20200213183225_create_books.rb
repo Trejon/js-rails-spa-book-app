@@ -6,7 +6,6 @@ class CreateBooks < ActiveRecord::Migration[6.0]
       t.string :genre
       t.text :description
       t.integer :page_count
-      t.belongs_to :list, null: false, foreign_key: true
 
       t.timestamps
     end
