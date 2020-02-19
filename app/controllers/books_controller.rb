@@ -1,34 +1,33 @@
-class Api::V1::BooksController < ApplicationController
+class BooksController < ApplicationController
   before_action :authenticate_user!
 
     def index
-        books = current_user.books
+        books = Book.all
         render json: books.to_json(include: [:reviews] )
     end
 
     def show
-        book = Book.find(params[:id])
-        authorize_user_resource(book)
+        book = Book.all.find(params[:id])
+        # authorize_user_resource(book)
         render_resource(book, with: [:reviews])
     end
 
     def create
         book = Book.new(book_params)
-        book.user = current_user
         book.save
         render_resource(book)
     end
 
     def update
         book = Book.find(params[:id])
-        authorize_user_resource(book)
+        # authorize_user_resource(book)
         book.update(book_params)
         render_resource(book)
     end
 
     def destroy
         book = Book.find(params[:id])
-        authorize_user_resource(book)
+        # authorize_user_resource(book)
         book.destory
         render_resource(book)
     end
