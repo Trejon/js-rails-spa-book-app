@@ -11,6 +11,7 @@ class ProfilePage extends PageManager{
     }
 
     profileBindingAndEventListeners() {
+      console.log(this)
       const userList = this.container.querySelector('ul#lists')
       userList.addEventListener('click', this.handleListClick.bind(this))
       const userBooks = this.container.querySelector('ul#books')
@@ -34,6 +35,11 @@ class ProfilePage extends PageManager{
       editButton.addEventListener('click', this.formalizeBook.bind(this))
     }
 
+    bookFormBindingsAndEventListeners(){
+      const form = this.container.querySelector('#edit-book-form')
+      form.addEventListener('submit', this.handleUpdateBook.bind(this))
+    }
+
     reviewBindingsAndEventListeners() {
       const editButton = this.container.querySelector('button')
       editButton.addEventListener('click', this.formalizeReview.bind(this))
@@ -42,11 +48,6 @@ class ProfilePage extends PageManager{
     reviewFormBindingsAndEventListeners() {
       const form = this.container.querySelector('#edit-review-form')
       form.addEventListener('submit', this.handleUpdateReview.bind(this))
-    }
-
-    bookFormBindingsAndEventListeners(){
-      const form = this.container.querySelector('#edit-book-form')
-      form.addEventListener('submit', this.handleUpdateBook.bind(this))
     }
 
     handleListClick(e) {
@@ -175,17 +176,15 @@ class ProfilePage extends PageManager{
                 const [id, date] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
                 const [rating, content] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
 
-                const params = { rating, content, date }
+                const params = { rating, content, date, id }
                 const review = this.getReviewById(id)
-                console.log(review)
                 const oldReview = new Review({id, rating, content, date})
-                console.log(oldReview)
                   review.rating = rating
                   review.content = content
                   review.date = date
                   this.renderReview(review)
                   try{
-                      const {id, rating, content, date} = await this.adapter.updateReview(params)
+                        const {id, rating, content, date} = await this.adapter.updateReview(params)
                   }catch(err){
                       review.rating = oldReview.rating
                       review.content = oldReview.content

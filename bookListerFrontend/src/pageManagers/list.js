@@ -75,9 +75,9 @@ class ListPage extends PageManager{
     }
 
     renderLists() {
-      const uniqueLists = Array.from(new Set(this.lists.map(l => l.id)))
+      const uniqueLists = Array.from(new Set(this.lists.map(list => list.id)))
         .map(id => {
-      return this.lists.find(a => a.id === id)
+      return this.lists.find(list => list.id === id)
      })
       this.container.innerHTML += uniqueLists.map(list => list.liAndLinkHTML).join('')
       this.container.innerHTML += `<h1>Add New List</h1>`
