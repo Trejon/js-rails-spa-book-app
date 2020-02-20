@@ -43,13 +43,11 @@ class BookAdapter{
   }
 
   async createBook(params) {
-    console.log(params)
     const res = await fetch(`${this.baseURL}/books`, {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify(params)
     })
-    console.log('I got here')
     await this.baseAdapter.checkStatus(res)
     return await res.json()
   }

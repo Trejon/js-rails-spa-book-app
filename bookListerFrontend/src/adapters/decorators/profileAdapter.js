@@ -34,8 +34,6 @@ class ProfileAdapter{
   async updateBook(params) {
     const { title, author, genre, description, page_count, id} = params
     const url = `${this.baseURL}/books/${id}`
-    console.log(url)
-    console.log(params)
     const body = {
         book: {
           title,
@@ -45,7 +43,6 @@ class ProfileAdapter{
           page_count
         }
       }
-      console.log(body)
     const res = await fetch(url, {
       method: 'PATCH',
       headers: this.headers,
@@ -54,6 +51,26 @@ class ProfileAdapter{
     await this.baseAdapter.checkStatus(res)
     return await res.json()
 }
+
+async updateReview(params) {
+    const { rating, content, date, id} = params
+    const url = `${this.baseURL}/reviews/${id}`
+    const body = {
+      review: {
+        rating,
+        content,
+        date
+      }
+    }
+    const res = await fetch(url, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify(body)
+    })
+    await this.baseAdapter.checkStatus(res)
+    return await res.json()
+  }
+
 
 
 //   async createList(params) {
