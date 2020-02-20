@@ -5,6 +5,7 @@ class List{
         this.name = name
         this.description = description
         this.books = books
+        this.lists = []
       }
 
 
@@ -36,22 +37,59 @@ class List{
 
       get showHTML() {
         return (`
-            <h2>${this.name}</h2>
+            <h1>List: ${this.name}</h1>
             <p>Description:\n${this.description ? this.description : "None"}</p>
             <button data-id=${this.id} id="edit-list">Edit</button>
             <button data-id=${this.id} id="delete-list">Delete</button>
+            <h1>Books On This List:</h1>
+            <h3>${this.books}</h3>
+            <h1>Add A Book To This List</h1>
+            <form id="new-book-form">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="title">Title</label>
+                    <textarea class="form-control" id="title" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="author">Author</label>
+                    <textarea class="form-control" id="author" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="genre">Genre</label>
+                     <textarea class="form-control" id="genre" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="description">Description</label>
+                     <textarea class="form-control" id="description" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="page_count">Pages</label>
+                    <input type="text" class="form-control" id="page_count" placeholder="Pages" required >
+                  </div>
+                </div>
+              <button type="submit" class="btn btn-primary">Add New Book</button>
+            </form>
           `)
         }
 
       get liAndLinkHTML() {
-        return `<br><li><a href="#" data-id=${this.id}>${this.name} - ${this.description}</a></li>`
+        return `<br><li><a href="#" data-id=${this.id}>${this.name} - ${this.description}</a><button type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
       }
 
-      get listsHTML() {
-        return (`
-          <h2>Welcome to your lists page</h2>
-          <h3>Here's Your lists:</h3>
-          <br>
-          `)
-      }
+      // get listsHTML() {
+      //   return (`
+      //     <h4>Your Created Lists:</h4>
+      //     <ul id="lists">
+      //         ${this.lists.map(list => list.liAndLinkHTML).join('')}
+      //     </ul>
+      //     `)
+      // }
 }
