@@ -11,16 +11,66 @@ class BookPage extends PageManager{
     if (form){
     form.addEventListener('submit', this.handleBookSubmit.bind(this))
     this.container.querySelector('a#books-list')}
+
+    const booksList = this.container.querySelector('ul#books')
+    if(booksList){
+    booksList.addEventListener('click', this.handleBookClick.bind(this))}
+  }
+
+  bookBindingsAndEventListeners() {
+    const editButton = this.container.querySelector('button#edit-book')
+    if(editButton){
+    editButton.addEventListener('click', this.formalizeBook.bind(this))}
+  }
+
+  bookFormBindingsAndEventListeners() {
+    const form = this.container.querySelector('#edit-book-form')
+    form.addEventListener('submit', this.handleUpdateBook.bind(this))
+  }
+
+  formalizeBook(e) {
+    e.preventDefault()
+    const id = e.target.dataset.id
+    const book = this.getBookById(id)
+      if(book){
+          this.container.innerHTML = book.formHTML
+          this.bookFormBindingsAndEventListeners()
+      } else {
+          this.handleError({
+            type: "404 Not Found",
+            msg: "List was not found"
+          })
+        }
   }
 
   handleBookClick(e) {
-    e.preventDefault()
-    console.log('Hello')
-  }
+    if(e.target.tagName === 'A'){
+      const bookId = e.target.dataset.id
+      const book = this.getBookById(bookId)
+      this.renderBook(book)
+      }
+    }
 
-  get bookReviews(){
-    for(let i = 0; i < this.books.length; i++){console.log(this.books[i].reviews)}
-  }
+    renderBook(book) {
+      if(book){
+        this.container.innerHTML = book.showHTML
+        this.bookBindingsAndEventListeners()
+      } else {
+        this.handleError({
+          type: "404 Not Found",
+          msg: "List was not found"
+        })
+      }
+    }
+
+    getBookById(id) {
+      return this.books.find(book => book.id == id)
+    }
+
+
+  // get bookReviews(){
+  //   for(let i = 0; i < this.books.length; i++){console.log(this.books[i].reviews)}
+  // }
 
   get staticHTML() {
     return (`
@@ -53,7 +103,7 @@ class BookPage extends PageManager{
 
     booksHTML(books) {
        return (`
-         <h4>Your Created Books:</h4>
+         <h4>Books In Your Library:</h4>
          <ul id="books">
              ${books.map(book => book.liAndLinkHTML).join('')}
          </ul>
@@ -80,32 +130,35 @@ class BookPage extends PageManager{
          }
      }
 
-    async handleUpdateBook(e){
-          e.preventDefault()
-          const id = this.container.querySelector('#hidden').value
-          const [title, author, genre, description, page_count] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+     async handleUpdateBook(e){
+           e.preventDefault()
+           const id = this.container.querySelector('#hidden').value
+           const page_count = this.container.querySelector('#page_count').value
+           const [title, author, genre, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
 
-          const params = { title, author, genre, description, page_count, id }
-          const book = this.getBookById(id)
-          const oldBook = new Book({id, title, author, genre, description, page_count})
-            book.title = title
-            book.author = author
-            book.genre = genre
-            book.description = description
-            book.page_count = page_count
-            this.renderBook(book)
-            try{
-                const {id, title, author, genre, description} = await this.adapter.updateBook(params)
-            }catch(err){
-                book.title = oldBook.title
-                book.author = oldBook.author
-                book.genre = oldBook.genre
-                book.description = oldBook.description
-                this.renderBook(book)
-                this.handleError(err)
-            }
-            this.fetchAndRenderPageResources()
-      }
+           const params = { title, author, genre, description, page_count, id }
+
+           const book = this.getBookById(id)
+
+           const oldBook = new Book({id, title, author, genre, description, page_count})
+             book.title = title
+             book.author = author
+             book.genre = genre
+             book.description = description
+             this.renderBook(book)
+             try{
+                 const {id, title, author, genre, description, page_count} = await this.adapter.updateBook(params)
+             }catch(err){
+                 book.title = oldBook.title
+                 book.author = oldBook.author
+                 book.genre = oldBook.genre
+                 book.description = oldBook.description
+                 book.page_count = oldBook.page_count
+                 this.renderBook(book)
+                 this.handleError(err)
+             }
+             this.fetchAndRenderPageResources()
+       }
 
       renderNewForm() {
         this.container.innerHTML += `

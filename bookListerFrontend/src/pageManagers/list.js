@@ -11,11 +11,82 @@ class ListPage extends PageManager{
     if (form){
     form.addEventListener('submit', this.handleListSubmit.bind(this))}
 
-    // const listItems = this.container.querySelectorAll('li')
-
-    // userList.addEventListener('click', this.handleListClick.bind(this))
-
+    const userLists = this.container.querySelector('ul#lists')
+    if(userLists){
+    userLists.addEventListener('click', this.handleListClick.bind(this))}
   }
+
+  handleListClick(e) {
+    if(e.target.tagName === 'A'){
+      const listId = e.target.dataset.id
+      const list = this.getListById(listId)
+      this.renderClickedList(list)
+      }
+  }
+
+  renderClickedList(list) {
+    if(list){
+      this.container.innerHTML = list.showHTML
+      this.listBindingsAndEventListeners()
+    } else {
+      this.handleError({
+        type: "404 Not Found",
+        msg: "List was not found"
+      })
+    }
+  }
+
+  listBindingsAndEventListeners() {
+    const editButton = this.container.querySelector('button#edit-list')
+    editButton.addEventListener('click', this.formalizeList.bind(this))
+  }
+
+  listFormBindingsAndEventListeners() {
+    const form = this.container.querySelector('form')
+    form.addEventListener('submit', this.handleUpdateList.bind(this))
+  }
+
+  formalizeList(e) {
+    e.preventDefault()
+    const id = e.target.dataset.id
+    const list = this.getListById(id)
+      if(list){
+          this.container.innerHTML = list.formHTML
+          this.listFormBindingsAndEventListeners()
+      } else {
+          this.handleError({
+            type: "404 Not Found",
+            msg: "List was not found"
+          })
+        }
+  }
+
+  getListById(id) {
+    return this.lists.find(list => list.id == id)
+  }
+
+  async handleUpdateList(e){
+        e.preventDefault()
+        const id = e.target.querySelector('input').value
+        const [name, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+
+        const params = { name, description, id }
+        const list = this.getListById(id)
+        const oldList = new List({id, name, description})
+          list.name = name
+          list.description = description
+          this.renderClickedList(list)
+          try{
+              const {id, name, description} = await this.adapter.updateList(params)
+          }catch(err){
+              list.name = oldList.name
+              list.description = oldList.description
+              this.renderClickedList(list)
+              this.handleError(err)
+          }
+          this.fetchAndRenderPageResources()
+    }
+
 
   renderNewForm() {
     this.container.innerHTML += `<form id="new-list-form">

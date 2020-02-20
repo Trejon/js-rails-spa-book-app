@@ -11,7 +11,6 @@ class ProfilePage extends PageManager{
     }
 
     profileBindingAndEventListeners() {
-      console.log(this)
       const userList = this.container.querySelector('ul#lists')
       userList.addEventListener('click', this.handleListClick.bind(this))
       const userBooks = this.container.querySelector('ul#books')
