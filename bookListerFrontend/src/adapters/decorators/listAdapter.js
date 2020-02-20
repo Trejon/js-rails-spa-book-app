@@ -30,4 +30,33 @@ class ListAdapter{
       await this.baseAdapter.checkStatus(res)
       return await res.json()
     }
-}
+
+    async deleteList(params) {
+      const { name, description, id} = params
+      const url = `${this.baseURL}/lists/${id}`
+      const res = await fetch(url, {
+        method: 'DELETE',
+        headers: this.headers
+      })
+      await this.baseAdapter.checkStatus(res)
+      return await res.json()
+    }
+
+    async updateList(params) {
+      const { name, description, id} = params
+      const url = `${this.baseURL}/lists/${id}`
+      const body = {
+        list: {
+          name,
+          description
+        }
+      }
+      const res = await fetch(url, {
+        method: 'PATCH',
+        headers: this.headers,
+        body: JSON.stringify(body)
+      })
+      await this.baseAdapter.checkStatus(res)
+      return await res.json()
+    }
+  }
