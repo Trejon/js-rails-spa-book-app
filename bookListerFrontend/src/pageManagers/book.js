@@ -7,10 +7,19 @@ class BookPage extends PageManager{
   }
 
   initBindingsAndEventListeners(){
-    console.log(this)
     const form = this.container.querySelector('form')
     if (form){
-    form.addEventListener('submit', this.handleBookSubmit.bind(this))}
+    form.addEventListener('submit', this.handleBookSubmit.bind(this))
+    this.container.querySelector('a#books-list')}
+  }
+
+  handleBookClick(e) {
+    e.preventDefault()
+    console.log('Hello')
+  }
+
+  get bookReviews(){
+    for(let i = 0; i < this.books.length; i++){console.log(this.books[i].reviews)}
   }
 
   get staticHTML() {
@@ -26,7 +35,7 @@ class BookPage extends PageManager{
         .then(books => {
             books.forEach(book => this.books.push(new Book(book)))
           })
-        .then(() => this.renderBooks(this.adapter.books))
+        .then(() => this.renderBooks(this.books))
         .then(() => this.initBindingsAndEventListeners())
       } catch(err) {
           this.handleError(err)
@@ -34,7 +43,7 @@ class BookPage extends PageManager{
     }
 
     renderBooks() {
-      const uniqueBooks = Array.from(new Set(this.books.map(l => l.id)))
+      const uniqueBooks = Array.from(new Set(this.books.map(book => book.id)))
         .map(id => {
       return this.books.find(a => a.id === id)
      })
@@ -57,7 +66,6 @@ class BookPage extends PageManager{
          }
          try{
             await this.adapter.createBook(params)
-            console.log('I got here')
             this.redirect('book')
          }catch(err)  {
            this.handleError(err)

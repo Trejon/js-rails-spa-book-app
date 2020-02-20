@@ -7,7 +7,6 @@ class ProfilePage extends PageManager{
     }
 
     initBindingsAndEventListeners() {
-
       return null
     }
 
@@ -33,9 +32,16 @@ class ProfilePage extends PageManager{
     bookBindingsAndEventListeners() {
       const editButton = this.container.querySelector('button')
       editButton.addEventListener('click', this.formalizeBook.bind(this))
+    }
 
-      // const deleteButton = this.container.querySelector('delete-button')
-      // deleteButton.addEventListener('click', this.deleteList.bind(this))
+    reviewBindingsAndEventListeners() {
+      const editButton = this.container.querySelector('button')
+      editButton.addEventListener('click', this.formalizeReview.bind(this))
+    }
+
+    reviewFormBindingsAndEventListeners() {
+      const form = this.container.querySelector('#edit-review-form')
+      form.addEventListener('submit', this.handleUpdateReview.bind(this))
     }
 
     bookFormBindingsAndEventListeners(){
@@ -67,10 +73,20 @@ class ProfilePage extends PageManager{
             }
           }
 
-          // deleteList(e){
-          //   e.preventDefault()
-          //   console.log('Delete')
-          // }
+        formalizeReview(e){
+          e.preventDefault()
+          const id = e.target.dataset.id
+          const review = this.user.reviews.find(review => review.id == id)
+            if(review){
+              this.container.innerHTML = review.formHTML
+              this.reviewFormBindingsAndEventListeners()
+            } else {
+              this.handleError({
+                type: "404 Not Found",
+                msg: "List was not found"
+              })
+            }
+        }
 
         formalizeList(e){
           e.preventDefault()
@@ -154,6 +170,32 @@ class ProfilePage extends PageManager{
                   this.fetchAndRenderPageResources()
             }
 
+          async handleUpdateReview(e) {
+                e.preventDefault()
+                const [id, date] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
+                const [rating, content] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+
+                const params = { rating, content, date }
+                const review = this.getReviewById(id)
+                console.log(review)
+                const oldReview = new Review({id, rating, content, date})
+                console.log(oldReview)
+                  review.rating = rating
+                  review.content = content
+                  review.date = date
+                  this.renderReview(review)
+                  try{
+                      const {id, rating, content, date} = await this.adapter.updateReview(params)
+                  }catch(err){
+                      review.rating = oldReview.rating
+                      review.content = oldReview.content
+                      review.date = oldReview.date
+                      this.renderReview(review)
+                      this.handleError(err)
+                  }
+                  this.fetchAndRenderPageResources()
+            }
+
           async fetchAndRenderPageResources() {
             try {
               const userObj = await this.adapter.getUser()
@@ -209,7 +251,7 @@ class ProfilePage extends PageManager{
           renderReview(review){
               if(review){
                 this.container.innerHTML = review.showHTML
-                // this.reviewBindingsAndEventListeners()
+                this.reviewBindingsAndEventListeners()
               } else {
                 this.handleError({
                   type: "404 Not Found",

@@ -7,10 +7,13 @@ class ListPage extends PageManager{
   }
 
   initBindingsAndEventListeners(){
-    if(this.lists[0]){console.log(this.lists[0].books)}
     const form = this.container.querySelector('form')
     if (form){
     form.addEventListener('submit', this.handleListSubmit.bind(this))}
+
+    // const listItems = this.container.querySelectorAll('li')
+
+    // userList.addEventListener('click', this.handleListClick.bind(this))
 
   }
 
@@ -52,7 +55,6 @@ class ListPage extends PageManager{
   }
 
   get staticHTML() {
-    console.log(this)
     return (`
       <h2>Welcome to your lists page</h2>
       <h4>Your lists:</h4>
@@ -65,7 +67,7 @@ class ListPage extends PageManager{
         .then(lists => {
             lists.forEach(list => this.lists.push(new List(list)))
           })
-        .then(() => this.renderLists(this.adapter.lists))
+        .then(() => this.renderLists(this.lists))
         .then(() => this.initBindingsAndEventListeners())
       } catch(err) {
           this.handleError(err)
@@ -81,4 +83,21 @@ class ListPage extends PageManager{
       this.container.innerHTML += `<h1>Add New List</h1>`
       this.renderNewForm()
     }
+
+    async handleBookSubmit(e) {
+         e.preventDefault()
+         const name = e.target.querySelector('input').value
+         const description = e.target.querySelector('textarea').value
+         const params = {
+             list: {
+                name, description
+             }
+         }
+         try{
+            await this.adapter.createList(params)
+            this.redirect('list')
+         }catch(err)  {
+           this.handleError(err)
+         }
+     }
 }

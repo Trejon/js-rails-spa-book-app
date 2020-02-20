@@ -18,7 +18,7 @@ class ReviewPage extends PageManager{
       .then(reviews => {
           reviews.forEach(review => this.reviews.push(new Review(review)))
         })
-      .then(() => this.renderReviews(this.adapter.reviews))
+      .then(() => this.renderReviews(this.reviews))
       .then(() => this.initBindingsAndEventListeners())
     }catch(err){
       this.handleError(err)
