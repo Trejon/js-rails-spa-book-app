@@ -25,7 +25,6 @@ class BookPage extends PageManager{
   get staticHTML() {
     return (`
       <h2>Welcome to your books page</h2>
-      <h4>Your books:</h4>
     `)
   }
 
@@ -47,10 +46,19 @@ class BookPage extends PageManager{
         .map(id => {
       return this.books.find(a => a.id === id)
      })
-      this.container.innerHTML += uniqueBooks.map(book => book.liAndLinkHTML).join('')
+      this.container.innerHTML += this.booksHTML(uniqueBooks)
       this.container.innerHTML += `<h1>Add New Book</h1>`
       this.renderNewForm()
     }
+
+    booksHTML(books) {
+       return (`
+         <h4>Your Created Books:</h4>
+         <ul id="books">
+             ${books.map(book => book.liAndLinkHTML).join('')}
+         </ul>
+         `)
+     }
 
     async handleBookSubmit(e) {
          e.preventDefault()

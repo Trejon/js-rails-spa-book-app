@@ -28,7 +28,6 @@ class ReviewPage extends PageManager{
   get staticHTML() {
     return (`
       <h2>Welcome to your reviews page</h2>
-      <h4>Your reviews:</h4>
     `)
   }
 
@@ -37,10 +36,19 @@ class ReviewPage extends PageManager{
       .map(id => {
     return this.reviews.find(a => a.id === id)
    })
-    this.container.innerHTML += uniqueReviews.map(review => review.liAndLinkHTML).join('')
+    this.container.innerHTML += this.reviewsHTML(uniqueReviews)
     this.container.innerHTML += `<h1>Add New Review</h1>`
     this.renderNewForm()
   }
+
+  reviewsHTML(reviews) {
+     return (`
+       <h4>Your Created Reviews:</h4>
+       <ul id="reviews">
+           ${reviews.map(review => review.liAndLinkHTML).join('')}
+       </ul>
+       `)
+   }
 
   async handleReviewSubmit(e) {
        e.preventDefault()

@@ -57,7 +57,6 @@ class ListPage extends PageManager{
   get staticHTML() {
     return (`
       <h2>Welcome to your lists page</h2>
-      <h4>Your lists:</h4>
     `)
   }
 
@@ -79,9 +78,18 @@ class ListPage extends PageManager{
         .map(id => {
       return this.lists.find(list => list.id === id)
      })
-      this.container.innerHTML += uniqueLists.map(list => list.liAndLinkHTML).join('')
+      this.container.innerHTML += this.listsHTML(uniqueLists)
       this.container.innerHTML += `<h1>Add New List</h1>`
       this.renderNewForm()
+    }
+
+   listsHTML(list) {
+      return (`
+        <h4>Your Created Lists:</h4>
+        <ul id="lists">
+            ${list.map(list => list.liAndLinkHTML).join('')}
+        </ul>
+        `)
     }
 
     async handleBookSubmit(e) {
