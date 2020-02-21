@@ -15,17 +15,17 @@ class User{
 
           <h4>Your Created Lists:</h4>
           <ul id="lists">
-              ${this.lists.map(list => list.liAndLinkHTML).join('')}
+              ${this.lists.map(list => list.profileLiAndLinkHTML).join('')}
           </ul>
 
           <h4>Reviews You've Made:</h4>
           <ul id="reviews">
-              ${this.reviews.map(review => review.liAndLinkHTML).join('')}
+              ${this.reviews.map(review => review.profileLiAndLinkHTML).join('')}
           </ul>
 
           <h4>Books In Your Collection:</h4>
           <ul id="books">
-              ${this.books.map(book => book.liAndLinkHTML).join('')}
+              ${this.books.map(book => book.profileLiAndLinkHTML).join('')}
           </ul>
         `)
     }

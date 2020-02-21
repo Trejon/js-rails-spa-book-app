@@ -1,6 +1,6 @@
 class Book{
     constructor(book){
-      const { id, title, author, genre, description, page_count, reviews} = book
+      const { id, title, author, genre, description, page_count, reviews, lists} = book
         this.id = id
         this.title = title
         this.author = author
@@ -8,6 +8,7 @@ class Book{
         this.description = description
         this.page_count = page_count
         this.reviews = reviews
+        this.lists = lists
       }
 
       static formHTML(book) {
@@ -52,6 +53,10 @@ class Book{
         get formHTML() {
             return Book.formHTML(this)
           }
+
+        get profileLiAndLinkHTML() {
+            return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.title}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
+        }
 
       get liAndLinkHTML() {
         return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.title} - ${this.author}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`

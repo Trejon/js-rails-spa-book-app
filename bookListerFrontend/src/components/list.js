@@ -8,7 +8,6 @@ class List{
         this.lists = []
       }
 
-
     static formHTML(list) {
           return(`
             <form id="${list ? 'edit' : 'new'}-list-form">
@@ -39,12 +38,14 @@ class List{
         return (`
             <h1>List: ${this.name}</h1>
             <p>Description:\n${this.description ? this.description : "None"}</p>
-            <button data-id=${this.id} id="edit-list">Edit</button>
+            <button data-id=${this.id} id="edit-book">Edit</button>
             <button data-id=${this.id} id="delete-list">Delete</button>
             <h1>Books On This List:</h1>
             <h3>${this.books.map(book => book.title)}</h3>
+
             <h1>Add A Book To This List</h1>
             <form id="new-book-form">
+              <input id="hidden" type='hidden' value="${this.id}">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="title">Title</label>
@@ -84,12 +85,7 @@ class List{
         return `<br><li><a href="#" data-id=${this.id}>${this.name} - ${this.description}</a><button type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
       }
 
-      // get listsHTML() {
-      //   return (`
-      //     <h4>Your Created Lists:</h4>
-      //     <ul id="lists">
-      //         ${this.lists.map(list => list.liAndLinkHTML).join('')}
-      //     </ul>
-      //     `)
-      // }
+      get profileLiAndLinkHTML() {
+          return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.name} - ${this.description}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
+      }
 }

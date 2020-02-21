@@ -43,6 +43,10 @@ class Review{
         return `<br><li><a href="#" data-id=${this.id}>${this.book.title}: <br>Rating: ${this.rating} - Content: ${this.content}</a><button type="delete" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px" data-id=${this.id}>delete_forever</i></li>`
       }
 
+      get profileLiAndLinkHTML() {
+          return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.rating} - ${this.content}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
+      }
+
       get showHTML() {
         return (`
             <h1>Book: ${this.book.title}</h1>
