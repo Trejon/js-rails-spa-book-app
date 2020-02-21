@@ -51,4 +51,15 @@ class BookAdapter{
     await this.baseAdapter.checkStatus(res)
     return await res.json()
   }
+
+  async createReview(params) {
+    const res = await fetch(`${this.baseURL}/reviews`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify(params)
+    })
+    await this.baseAdapter.checkStatus(res)
+    return await res.json()
+  }
+
 }
