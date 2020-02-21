@@ -66,7 +66,7 @@ class Book{
 
       get showHTML() {
         return (`
-            <h2>${this.title}</h2>
+            <h2>Title: ${this.title}</h2>
             <h4>Author: ${this.author}</h4>
             <h4>Genre: ${this.genre}</h4>
             <h4>Pages: ${this.page_count}</h4>
@@ -74,6 +74,7 @@ class Book{
             <button data-id=${this.id} id="edit-book">Edit</button>
             <h1>Add A Review For This Book:</h1>
             <form id="new-review-form">
+              <input id="hidden" type='hidden' value="${this.id}">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="rating">Rating</label>
@@ -88,6 +89,7 @@ class Book{
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
+                      <label for="date">Date Finished</label>
                      <input type="date" class="datepicker">
                   </div>
                 </div>

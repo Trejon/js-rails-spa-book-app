@@ -49,7 +49,7 @@ class Review{
             <h4>Content: ${this.content}</h4>
             <h4>Date: ${new Date(this.date).toDateString()}</h4>
             <h4>Book Id: ${this.book_id}</h4>
-            <h4>Book: ${this}</h4>
+            <h4>Book: ${this.book[0]}</h4>
             <button data-id=${this.id} id="edit-review">Edit</button>
           `)
         }
