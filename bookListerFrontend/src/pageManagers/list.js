@@ -142,7 +142,9 @@ class ListPage extends PageManager{
       } catch(err) {
           this.handleError(err)
       }
+      
     }
+
 
     renderLists() {
       const uniqueLists = Array.from(new Set(this.lists.map(list => list.id)))

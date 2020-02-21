@@ -130,7 +130,7 @@ class ReviewPage extends PageManager{
 
   reviewsHTML(reviews) {
      return (`
-       <h4>Your Created Reviews:</h4>
+       <h4>Your Logged Reviews:</h4>
        <ul id="reviews">
            ${reviews.map(review => review.liAndLinkHTML).join('')}
        </ul>

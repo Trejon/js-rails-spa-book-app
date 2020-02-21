@@ -15,7 +15,22 @@ class BookPage extends PageManager{
     const booksList = this.container.querySelector('ul#books')
     if(booksList){
     booksList.addEventListener('click', this.handleBookClick.bind(this))}
+
+    // const deleteButtons = this.container.querySelectorAll('button#delete')
+    // if(deleteButtons){
+    //   for (var i = 0 ; i < deleteButtons.length; i++) {
+    //     deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
+    //   }
+    // }
   }
+
+  // handleDelete(e){
+  //   e.preventDefault()
+  //   const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+  //   const listItem = this.getBookById(liId)
+  //   delete this.books[listItem]
+  //   console.log(this.books)
+  // }
 
   bookBindingsAndEventListeners() {
     const editButton = this.container.querySelector('button#edit-book')
@@ -68,7 +83,7 @@ class BookPage extends PageManager{
 
   handleBookClick(e) {
     if(e.target.tagName === 'A'){
-      const bookId = e.target.dataset.id
+      const bookId = e.target.parentNode.getAttribute('data-id')
       const book = this.getBookById(bookId)
       this.renderBook(book)
       }
@@ -89,11 +104,6 @@ class BookPage extends PageManager{
     getBookById(id) {
       return this.books.find(book => book.id == id)
     }
-
-
-  // get bookReviews(){
-  //   for(let i = 0; i < this.books.length; i++){console.log(this.books[i].reviews)}
-  // }
 
   get staticHTML() {
     return (`

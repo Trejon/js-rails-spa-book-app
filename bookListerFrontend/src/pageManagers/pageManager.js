@@ -8,17 +8,17 @@ class PageManager{
   }
 
   handleError(err){
-        if(err.type === "Authorizaiton Error"){
-            this.handleAlert(err.msg)
-            this.redirect('welcome')
-        }else{
-            this.handleAlert(err)
-        }
+    if(err.type === "Authorizaiton Error"){
+      this.handleAlert(err.msg)
+      this.redirect('welcome')
+    }else{
+      this.handleAlert(err)
     }
+  }
 
   render() {
-      this.container.innerHTML = this.staticHTML
-      this.initBindingsAndEventListeners()
-      this.fetchAndRenderPageResources()
+    this.container.innerHTML = this.staticHTML
+    this.initBindingsAndEventListeners()
+    this.fetchAndRenderPageResources()
   }
 }

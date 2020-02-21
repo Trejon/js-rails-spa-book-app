@@ -1,9 +1,9 @@
 class ProfilePage extends PageManager{
 
-  constructor(container, adapter){
-      super(container)
-      this.adapter = new ProfileAdapter(adapter);
-      this.user = null;
+    constructor(container, adapter){
+        super(container)
+        this.adapter = new ProfileAdapter(adapter);
+        this.user = null;
     }
 
     initBindingsAndEventListeners() {
@@ -13,8 +13,10 @@ class ProfilePage extends PageManager{
     profileBindingAndEventListeners() {
       const userList = this.container.querySelector('ul#lists')
       userList.addEventListener('click', this.handleListClick.bind(this))
+
       const userBooks = this.container.querySelector('ul#books')
       userBooks.addEventListener('click', this.handleBookClick.bind(this))
+
       const userReviews = this.container.querySelector('ul#reviews')
       userReviews.addEventListener('click', this.handleReviewClick.bind(this))
     }
@@ -54,212 +56,210 @@ class ProfilePage extends PageManager{
         const listId = e.target.dataset.id
         const list = this.getListById(listId)
         this.renderList(list)
-        }
       }
+    }
 
-      handleBookClick(e) {
-        if(e.target.tagName === 'A'){
-          const bookId = e.target.dataset.id
-          const book = this.getBookById(bookId)
-          this.renderBook(book)
+    handleBookClick(e) {
+      if(e.target.tagName === 'A'){
+        const bookId = e.target.dataset.id
+        const book = this.getBookById(bookId)
+        this.renderBook(book)
+      }
+    }
+
+    handleReviewClick(e) {
+      if(e.target.tagName === 'A'){
+        const reviewId = e.target.dataset.id
+        const review = this.getReviewById(reviewId)
+        this.renderReview(review)
+      }
+    }
+
+    formalizeReview(e){
+      e.preventDefault()
+      const id = e.target.dataset.id
+      const review = this.user.reviews.find(review => review.id == id)
+        if(review){
+          this.container.innerHTML = review.formHTML
+          this.reviewFormBindingsAndEventListeners()
+        } else {
+            this.handleError({
+              type: "404 Not Found",
+              msg: "List was not found"
+            })
+        }
+    }
+
+    formalizeList(e){
+      e.preventDefault()
+      const id = e.target.dataset.id
+      const list = this.user.lists.find(list => list.id == id)
+        if(list){
+          this.container.innerHTML = list.formHTML
+          this.listFormBindingsAndEventListeners()
+        } else {
+            this.handleError({
+              type: "404 Not Found",
+              msg: "List was not found"
+            })
+        }
+    }
+
+    formalizeBook(e){
+      e.preventDefault()
+      const id = e.target.dataset.id
+      const book = this.user.books.find(book => book.id == id)
+        if(book){
+          this.container.innerHTML = book.formHTML
+          this.bookFormBindingsAndEventListeners()
+        } else {
+            this.handleError({
+                type: "404 Not Found",
+                msg: "List was not found"
+            })
           }
         }
 
-        handleReviewClick(e) {
-          if(e.target.tagName === 'A'){
-            const reviewId = e.target.dataset.id
-            const review = this.getReviewById(reviewId)
-            this.renderReview(review)
-            }
-          }
-
-        formalizeReview(e){
+        async handleUpdateList(e){
           e.preventDefault()
-          const id = e.target.dataset.id
-          const review = this.user.reviews.find(review => review.id == id)
-            if(review){
-              this.container.innerHTML = review.formHTML
-              this.reviewFormBindingsAndEventListeners()
-            } else {
+          const id = e.target.querySelector('input').value
+          const [name, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+
+          const params = { name, description, id }
+          const list = this.getListById(id)
+          const oldList = new List({id, name, description})
+          list.name = name
+          list.description = description
+          this.renderList(list)
+            try{
+              const {id, name, description} = await this.adapter.updateList(params)
+            }catch(err){
+              list.name = oldList.name
+              list.description = oldList.description
+              this.renderList(list)
+              this.handleError(err)
+            }
+              this.fetchAndRenderPageResources()
+        }
+
+        async handleUpdateBook(e){
+          e.preventDefault()
+          const id = this.container.querySelector('#hidden').value
+          const page_count = this.container.querySelector('#page_count').value
+          const [title, author, genre, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+
+          const params = { title, author, genre, description, page_count, id }
+          const book = this.getBookById(id)
+          const oldBook = new Book({id, title, author, genre, description, page_count})
+            book.title = title
+            book.author = author
+            book.genre = genre
+            book.description = description
+            this.renderBook(book)
+              try{
+                const {id, title, author, genre, description, page_count} = await this.adapter.updateBook(params)
+              }catch(err){
+                book.title = oldBook.title
+                book.author = oldBook.author
+                book.genre = oldBook.genre
+                book.description = oldBook.description
+                book.page_count = oldBook.page_count
+                this.renderBook(book)
+                this.handleError(err)
+              }
+                this.fetchAndRenderPageResources()
+        }
+
+        async handleUpdateReview(e) {
+          e.preventDefault()
+          const [id, date] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
+          const [rating, content] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+
+          const params = { rating, content, date, id }
+          const review = this.getReviewById(id)
+          const oldReview = new Review({id, rating, content, date})
+            review.rating = rating
+            review.content = content
+            review.date = date
+            this.renderReview(review)
+              try{
+                const {id, rating, content, date} = await this.adapter.updateReview(params)
+              }catch(err){
+                review.rating = oldReview.rating
+                review.content = oldReview.content
+                review.date = oldReview.date
+                this.renderReview(review)
+                this.handleError(err)
+              }
+                this.fetchAndRenderPageResources()
+        }
+
+        async fetchAndRenderPageResources() {
+          try {
+            const userObj = await this.adapter.getUser()
+            this.user = new User(userObj)
+            this.renderUser()
+          } catch(err) {
+            this.handleError(err)
+          }
+        }
+
+        getListById(id) {
+          return this.user.lists.find(list => list.id == id)
+        }
+
+        getBookById(id) {
+          return this.user.books.find(book => book.id == id)
+        }
+
+        getReviewById(id) {
+          return this.user.reviews.find(review => review.id == id)
+        }
+
+        get staticHTML() {
+          return (`
+            <div class="loader"></div>
+          `)
+        }
+
+        renderList(list){
+          if(list){
+            this.container.innerHTML = list.showHTML
+            this.listBindingsAndEventListeners()
+          } else {
               this.handleError({
                 type: "404 Not Found",
                 msg: "List was not found"
               })
-            }
+          }
         }
 
-        formalizeList(e){
-          e.preventDefault()
-          const id = e.target.dataset.id
-          const list = this.user.lists.find(list => list.id == id)
-            if(list){
-                this.container.innerHTML = list.formHTML
-                this.listFormBindingsAndEventListeners()
-            } else {
-                this.handleError({
-                  type: "404 Not Found",
-                  msg: "List was not found"
-                })
-              }
+        renderBook(book){
+          if(book){
+            this.container.innerHTML = book.showHTML
+            this.bookBindingsAndEventListeners()
+          } else {
+              this.handleError({
+                type: "404 Not Found",
+                msg: "List was not found"
+              })
           }
+        }
 
-          formalizeBook(e){
-              e.preventDefault()
-              const id = e.target.dataset.id
-              const book = this.user.books.find(book => book.id == id)
-                if(book){
-                    this.container.innerHTML = book.formHTML
-                    this.bookFormBindingsAndEventListeners()
-                } else {
-                    this.handleError({
-                      type: "404 Not Found",
-                      msg: "List was not found"
-                    })
-                  }
-              }
-
-          async handleUpdateList(e){
-                e.preventDefault()
-                const id = e.target.querySelector('input').value
-                const [name, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
-
-                const params = { name, description, id }
-                const list = this.getListById(id)
-                const oldList = new List({id, name, description})
-                  list.name = name
-                  list.description = description
-                  this.renderList(list)
-                  try{
-                      const {id, name, description} = await this.adapter.updateList(params)
-                  }catch(err){
-                      list.name = oldList.name
-                      list.description = oldList.description
-                      this.renderList(list)
-                      this.handleError(err)
-                  }
-                  this.fetchAndRenderPageResources()
-            }
-
-          async handleUpdateBook(e){
-                e.preventDefault()
-                const id = this.container.querySelector('#hidden').value
-                const page_count = this.container.querySelector('#page_count').value
-                const [title, author, genre, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
-
-                const params = { title, author, genre, description, page_count, id }
-
-                const book = this.getBookById(id)
-
-                const oldBook = new Book({id, title, author, genre, description, page_count})
-                  book.title = title
-                  book.author = author
-                  book.genre = genre
-                  book.description = description
-                  this.renderBook(book)
-                  try{
-                      const {id, title, author, genre, description, page_count} = await this.adapter.updateBook(params)
-                  }catch(err){
-                      book.title = oldBook.title
-                      book.author = oldBook.author
-                      book.genre = oldBook.genre
-                      book.description = oldBook.description
-                      book.page_count = oldBook.page_count
-                      this.renderBook(book)
-                      this.handleError(err)
-                  }
-                  this.fetchAndRenderPageResources()
-            }
-
-          async handleUpdateReview(e) {
-                e.preventDefault()
-                const [id, date] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
-                const [rating, content] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
-
-                const params = { rating, content, date, id }
-                const review = this.getReviewById(id)
-                const oldReview = new Review({id, rating, content, date})
-                  review.rating = rating
-                  review.content = content
-                  review.date = date
-                  this.renderReview(review)
-                  try{
-                        const {id, rating, content, date} = await this.adapter.updateReview(params)
-                  }catch(err){
-                      review.rating = oldReview.rating
-                      review.content = oldReview.content
-                      review.date = oldReview.date
-                      this.renderReview(review)
-                      this.handleError(err)
-                  }
-                  this.fetchAndRenderPageResources()
-            }
-
-          async fetchAndRenderPageResources() {
-            try {
-              const userObj = await this.adapter.getUser()
-              this.user = new User(userObj)
-              this.renderUser()
-            } catch(err) {
-                this.handleError(err)
-            }
+        renderReview(review){
+          if(review){
+            this.container.innerHTML = review.showHTML
+            this.reviewBindingsAndEventListeners()
+          } else {
+              this.handleError({
+                type: "404 Not Found",
+                msg: "List was not found"
+              })
           }
-
-          getListById(id) {
-            return this.user.lists.find(list => list.id == id)
-          }
-
-          getBookById(id) {
-            return this.user.books.find(book => book.id == id)
-          }
-
-          getReviewById(id) {
-            return this.user.reviews.find(review => review.id == id)
-          }
-
-          get staticHTML() {
-              return (`
-                <div class="loader"></div>
-                `)
-            }
-
-          renderList(list){
-              if(list){
-                this.container.innerHTML = list.showHTML
-                this.listBindingsAndEventListeners()
-              } else {
-                this.handleError({
-                  type: "404 Not Found",
-                  msg: "List was not found"
-                })
-              }
-            }
-
-          renderBook(book){
-              if(book){
-                this.container.innerHTML = book.showHTML
-                this.bookBindingsAndEventListeners()
-              } else {
-                this.handleError({
-                  type: "404 Not Found",
-                  msg: "List was not found"
-                })
-              }
-            }
-
-          renderReview(review){
-              if(review){
-                this.container.innerHTML = review.showHTML
-                this.reviewBindingsAndEventListeners()
-              } else {
-                this.handleError({
-                  type: "404 Not Found",
-                  msg: "List was not found"
-                })
-              }
-            }
+        }
 
         renderUser() {
           this.container.innerHTML = this.user.profileHTML
           this.profileBindingAndEventListeners()
         }
-    }
+}
