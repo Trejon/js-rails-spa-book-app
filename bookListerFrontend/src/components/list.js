@@ -42,7 +42,7 @@ class List{
             <button data-id=${this.id} id="edit-list">Edit</button>
             <button data-id=${this.id} id="delete-list">Delete</button>
             <h1>Books On This List:</h1>
-            <h3>${this.books}</h3>
+            <h3>${this.books.map(book => book.title)}</h3>
             <h1>Add A Book To This List</h1>
             <form id="new-book-form">
                 <div class="form-row">

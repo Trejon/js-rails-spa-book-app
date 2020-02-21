@@ -54,7 +54,7 @@ class Book{
           }
 
       get liAndLinkHTML() {
-        return `<br><li><a href="#" id="books-list" data-id=${this.id}>${this.title} - ${this.author}</a><button type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
+        return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.title} - ${this.author}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
       }
 
       get booksHTML() {
@@ -72,6 +72,9 @@ class Book{
             <h4>Pages: ${this.page_count}</h4>
             <h4>Description: <br> ${this.description}</h4>
             <button data-id=${this.id} id="edit-book">Edit</button>
+            <h1>Reviews For This Book:</h1>
+            <h3>Ratings: ${this.reviews.map(review => review.rating)}</h3>
+            <h3>Reviews: ${this.reviews.map(review => review.content)}</h3>
             <h1>Add A Review For This Book:</h1>
             <form id="new-review-form">
               <input id="hidden" type='hidden' value="${this.id}">
