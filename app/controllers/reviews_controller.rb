@@ -2,8 +2,8 @@ class ReviewsController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        reviews = current_user.reviews
-        render json: reviews.to_json(include: [:book] )
+        reviews = Review.all
+        render json: reviews, include: [:book]
     end
 
     def show
@@ -36,6 +36,6 @@ class ReviewsController < ApplicationController
   private
 
     def review_params
-        params.require(:review).permit(:rating, :content, :date, :book)
+        params.require(:review).permit(:rating, :content, :date, :book_id, :book)
     end
 end

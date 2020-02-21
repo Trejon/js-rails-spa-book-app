@@ -8,7 +8,7 @@ class BooksController < ApplicationController
 
     def show
         book = Book.all.find(params[:id])
-        # authorize_user_resource(book)
+        authorize_user_resource(book)
         render_resource(book, with: [:reviews])
     end
 
