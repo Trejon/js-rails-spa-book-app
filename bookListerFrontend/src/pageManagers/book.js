@@ -21,6 +21,29 @@ class BookPage extends PageManager{
     const editButton = this.container.querySelector('button#edit-book')
     if(editButton){
     editButton.addEventListener('click', this.formalizeBook.bind(this))}
+
+    const form = this.container.querySelector('form')
+    if (form){
+    form.addEventListener('submit', this.handleReviewSubmit.bind(this))}
+  }
+
+  async handleReviewSubmit(e) {
+      e.preventDefault()
+        const book_id = e.target.querySelectorAll('input')[0].value
+        const rating = e.target.querySelectorAll('input')[1].value
+        const content = e.target.querySelector('textarea').value
+        const date = e.target.querySelectorAll('input')[2].value
+        const params = {
+                 review: {
+                    book_id, rating, content, date
+                 }
+             }
+             try{
+                await this.adapter.createReview(params)
+                this.redirect('review')
+             }catch(err)  {
+               this.handleError(err)
+             }
   }
 
   bookFormBindingsAndEventListeners() {
@@ -196,4 +219,6 @@ class BookPage extends PageManager{
             <button type="submit" class="btn btn-primary">Add New Book</button>
           </form>`
       }
+
+
 }
