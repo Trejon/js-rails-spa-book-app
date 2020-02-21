@@ -45,6 +45,7 @@ class BookPage extends PageManager{
   async handleReviewSubmit(e) {
       e.preventDefault()
         const book_id = e.target.querySelectorAll('input')[0].value
+        const book = this.getBookById(book_id)
         const rating = e.target.querySelectorAll('input')[1].value
         const content = e.target.querySelector('textarea').value
         const date = e.target.querySelectorAll('input')[2].value
@@ -54,11 +55,14 @@ class BookPage extends PageManager{
                  }
              }
              try{
-                await this.adapter.createReview(params)
-                this.redirect('review')
+              const review = await this.adapter.createReview(params)
+                book.reviews.push(review)
+                this.renderBook(book)
+                // this.redirect('book')
              }catch(err)  {
                this.handleError(err)
              }
+             this.fetchAndRenderPageResources()
   }
 
   bookFormBindingsAndEventListeners() {
@@ -107,7 +111,7 @@ class BookPage extends PageManager{
 
   get staticHTML() {
     return (`
-      <h2>Welcome to your books page</h2>
+      <div class="loader"></div>
     `)
   }
 
@@ -136,6 +140,7 @@ class BookPage extends PageManager{
 
     booksHTML(books) {
        return (`
+         <h2>Welcome to your books page</h2>
          <h4>Books In Your Library:</h4>
          <ul id="books">
              ${books.map(book => book.liAndLinkHTML).join('')}

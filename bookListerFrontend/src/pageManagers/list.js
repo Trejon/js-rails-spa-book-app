@@ -7,9 +7,9 @@ class ListPage extends PageManager{
   }
 
   initBindingsAndEventListeners(){
-    const form = this.container.querySelector('form')
+    const form = this.container.querySelector('form#new-list-form')
     if (form){
-    form.addEventListener('submit', this.handleListSubmit.bind(this))}
+      form.addEventListener('submit', this.handleListSubmit.bind(this))}
 
     const userLists = this.container.querySelector('ul#lists')
     if(userLists){
@@ -38,7 +38,12 @@ class ListPage extends PageManager{
 
   listBindingsAndEventListeners() {
     const editButton = this.container.querySelector('button#edit-list')
-    editButton.addEventListener('click', this.formalizeList.bind(this))
+    if (editButton){
+    editButton.addEventListener('click', this.formalizeList.bind(this))}
+
+    const addBookForm = this.container.querySelector('form#new-book-form')
+    if(addBookForm){
+    addBookForm.addEventListener('submit', this.handleBookSubmit.bind(this))}
   }
 
   listFormBindingsAndEventListeners() {
@@ -127,7 +132,7 @@ class ListPage extends PageManager{
 
   get staticHTML() {
     return (`
-      <h2>Welcome to your lists page</h2>
+      <div class="loader"></div>
     `)
   }
 
@@ -142,9 +147,8 @@ class ListPage extends PageManager{
       } catch(err) {
           this.handleError(err)
       }
-      
-    }
 
+    }
 
     renderLists() {
       const uniqueLists = Array.from(new Set(this.lists.map(list => list.id)))
@@ -158,6 +162,7 @@ class ListPage extends PageManager{
 
    listsHTML(list) {
       return (`
+        <h1>Welcome To Your Lists Page</h1>
         <h4>Your Created Lists:</h4>
         <ul id="lists">
             ${list.map(list => list.liAndLinkHTML).join('')}
@@ -167,18 +172,24 @@ class ListPage extends PageManager{
 
     async handleBookSubmit(e) {
          e.preventDefault()
-         const name = e.target.querySelector('input').value
-         const description = e.target.querySelector('textarea').value
+         const title = e.target.getElementsByTagName('textarea')[0].value
+         const author = e.target.getElementsByTagName('textarea')[1].value
+         const genre = e.target.getElementsByTagName('textarea')[2].value
+         const description = e.target.getElementsByTagName('textarea')[3].value
+         const page_count = e.target.getElementsByTagName('input')[1].value
+         const list_id = e.target.getElementsByTagName('input')[0].value
+         const list = this.getListById(list_id)
          const params = {
-             list: {
-                name, description
+             book: {
+                title, author, genre, description, page_count
              }
          }
          try{
-            await this.adapter.createList(params)
-            this.redirect('list')
+            const book = await this.adapter.createBook(params)
+            list.books.push(book)
+            this.renderClickedList(list)
          }catch(err)  {
            this.handleError(err)
          }
      }
-}
+   }
