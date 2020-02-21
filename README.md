@@ -1,5 +1,6 @@
 # README
-##js-rails-spa-book-app
+
+#js-rails-spa-book-app
 A simple single page book application using vanilla javascript to access a Rails API backend. Uses devise for a basic login to store JSON Web Tokens for each users session. Only intended for local development environment.
 
 ##Installation
