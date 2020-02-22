@@ -18,11 +18,6 @@ class User{
               ${this.lists.map(list => list.profileLiAndLinkHTML).join('')}
           </ul>
 
-          <h4>Reviews You've Made:</h4>
-          <ul id="reviews">
-              ${this.reviews.map(review => review.profileLiAndLinkHTML).join('')}
-          </ul>
-
           <h4>Books In Your Collection:</h4>
           <ul id="books">
               ${this.books.map(book => book.profileLiAndLinkHTML).join('')}

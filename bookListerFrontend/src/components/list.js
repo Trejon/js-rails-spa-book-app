@@ -33,6 +33,12 @@ class List{
           return List.formHTML(this)
         }
 
+        get profileShowHTML() {
+          return (`
+              <h1>List: ${this.name}</h1>
+              <p>Description:\n${this.description ? this.description : "None"}</p>
+              `)}
+
 
       get showHTML() {
         return (`
@@ -43,7 +49,7 @@ class List{
             <h1>Books On This List:</h1>
             <h3>${this.books.map(book => book.title)}</h3>
 
-            <h1>Add A Book To This List</h1>
+            <h1>Add Book You Want To Read To List</h1>
             <form id="new-book-form">
               <input id="hidden" type='hidden' value="${this.id}">
                 <div class="form-row">
@@ -82,7 +88,7 @@ class List{
         }
 
       get liAndLinkHTML() {
-        return `<br><li><a href="#" data-id=${this.id}>${this.name} - ${this.description}</a><button type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
+        return `<br><li data-id=${this.id}><a href="#" id="lists-list"> ${this.name} - ${this.description}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
       }
 
       get profileLiAndLinkHTML() {

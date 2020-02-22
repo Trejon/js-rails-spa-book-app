@@ -40,20 +40,28 @@ class Review{
         }
 
       get liAndLinkHTML() {
-        return `<br><li><a href="#" data-id=${this.id}>${this.book.title}: <br>Rating: ${this.rating} - Content: ${this.content}</a><button type="delete" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px" data-id=${this.id}>delete_forever</i></li>`
+        return `<br><li data-id=${this.id}><a href="#" id="reviews-list">${this.book.title}: <br>Rating: ${this.rating} - Content: ${this.content}</a><button id="delete" type="delete" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px" data-id=${this.id}>delete_forever</i></li>`
       }
 
       get profileLiAndLinkHTML() {
           return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.rating} - ${this.content}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
       }
 
+      get profileShowHTML() {
+        return (`
+            <h2>Rating: ${this.rating}</h2>
+            <h4>Content: ${this.content}</h4>
+            <h4>Date Finished: ${new Date(this.date).toDateString()}</h4>
+            <button data-id=${this.id} id="edit-review">Edit</button>
+          `)
+        }
+
       get showHTML() {
         return (`
             <h1>Book: ${this.book.title}</h1>
             <h2>Rating: ${this.rating}</h2>
             <h4>Content: ${this.content}</h4>
-            <h4>Date: ${new Date(this.date).toDateString()}</h4>
-            <h4>Book Id: ${this.book_id}</h4>
+            <h4>Date Finished: ${new Date(this.date).toDateString()}</h4>
             <button data-id=${this.id} id="edit-review">Edit</button>
           `)
         }
