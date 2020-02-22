@@ -12,7 +12,6 @@ class Navbar extends PageManager {
   initBindingsAndEventListeners(){
 
   this.container.addEventListener('click', this.handleClick.bind(this))
-
   }
 
   handleClick(e) {
@@ -24,6 +23,7 @@ class Navbar extends PageManager {
     } else {
       this.adapter.token = null
       this.redirect('welcome')
+      location.reload();
     }
   }
 }

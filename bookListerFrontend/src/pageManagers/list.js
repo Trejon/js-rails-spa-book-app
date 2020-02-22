@@ -14,11 +14,25 @@ class ListPage extends PageManager{
     const userLists = this.container.querySelector('ul#lists')
     if(userLists){
     userLists.addEventListener('click', this.handleListClick.bind(this))}
+
+    const deleteButtons = this.container.querySelectorAll('button#delete')
+    if(deleteButtons){
+      for (var i = 0 ; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this))}}
   }
+
+
+    handleDelete(e){
+      e.preventDefault()
+      const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+      const listItem = this.getListById(liId)
+      this.adapter.deleteList(listItem)
+      e.target.parentNode.parentNode.remove()
+    }
 
   handleListClick(e) {
     if(e.target.tagName === 'A'){
-      const listId = e.target.dataset.id
+      const listId = e.target.parentNode.dataset.id
       const list = this.getListById(listId)
       this.renderClickedList(list)
       }
@@ -124,6 +138,7 @@ class ListPage extends PageManager{
       }
       try{
          await this.adapter.createList(params)
+         this.lists.push(params.list)
          this.redirect('list')
       }catch(err)  {
         this.handleError(err)
@@ -187,6 +202,7 @@ class ListPage extends PageManager{
          try{
             const book = await this.adapter.createBook(params)
             list.books.push(book)
+            debugger
             this.renderClickedList(list)
          }catch(err)  {
            this.handleError(err)

@@ -9,28 +9,28 @@ class BookPage extends PageManager{
   initBindingsAndEventListeners(){
     const form = this.container.querySelector('form')
     if (form){
-    form.addEventListener('submit', this.handleBookSubmit.bind(this))
-    this.container.querySelector('a#books-list')}
+    form.addEventListener('submit', this.handleBookSubmit.bind(this))}
+    // this.container.querySelector('a#books-list')}
 
     const booksList = this.container.querySelector('ul#books')
     if(booksList){
     booksList.addEventListener('click', this.handleBookClick.bind(this))}
 
-    // const deleteButtons = this.container.querySelectorAll('button#delete')
-    // if(deleteButtons){
-    //   for (var i = 0 ; i < deleteButtons.length; i++) {
-    //     deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
-    //   }
-    // }
+    const deleteButtons = this.container.querySelectorAll('button#delete')
+    if(deleteButtons){
+      for (var i = 0 ; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
+      }
+    }
   }
 
-  // handleDelete(e){
-  //   e.preventDefault()
-  //   const liId = e.target.parentNode.parentNode.getAttribute('data-id')
-  //   const listItem = this.getBookById(liId)
-  //   delete this.books[listItem]
-  //   console.log(this.books)
-  // }
+  handleDelete(e){
+    e.preventDefault()
+    const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+    const listItem = this.getBookById(liId)
+    this.adapter.deleteBook(listItem)
+    e.target.parentNode.parentNode.remove()
+  }
 
   bookBindingsAndEventListeners() {
     const editButton = this.container.querySelector('button#edit-book')
@@ -87,7 +87,7 @@ class BookPage extends PageManager{
 
   handleBookClick(e) {
     if(e.target.tagName === 'A'){
-      const bookId = e.target.parentNode.getAttribute('data-id')
+      const bookId = e.target.parentNode.dataset.id
       const book = this.getBookById(bookId)
       this.renderBook(book)
       }
@@ -134,14 +134,14 @@ class BookPage extends PageManager{
       return this.books.find(a => a.id === id)
      })
       this.container.innerHTML += this.booksHTML(uniqueBooks)
-      this.container.innerHTML += `<h1>Add New Book</h1>`
+      this.container.innerHTML += `<h1>Add Finished Book To Collection</h1>`
       this.renderNewForm()
     }
 
     booksHTML(books) {
        return (`
          <h2>Welcome to your books page</h2>
-         <h4>Books In Your Library:</h4>
+         <h4>Your Library Of Finished Books:</h4>
          <ul id="books">
              ${books.map(book => book.liAndLinkHTML).join('')}
          </ul>
@@ -162,10 +162,12 @@ class BookPage extends PageManager{
          }
          try{
             await this.adapter.createBook(params)
+            this.books.push(params.book)
             this.redirect('book')
          }catch(err)  {
            this.handleError(err)
          }
+         this.fetchAndRenderPageResources
      }
 
      async handleUpdateBook(e){

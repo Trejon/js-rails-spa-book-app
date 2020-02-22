@@ -10,13 +10,25 @@ class ReviewPage extends PageManager{
     const form = this.container.querySelector('form')
     if (form){
     form.addEventListener('submit', this.handleReviewSubmit.bind(this))}
+
     const reviewsList = this.container.querySelector('ul#reviews')
     if(reviewsList){
     reviewsList.addEventListener('click', this.handleReviewClick.bind(this))}
-    // const li = this.container.querySelectorAll('ul#reviews li')
-    // if(li){
-    //   li.addEventListener('click', console.log('delete was clicked'))
-    // }
+
+    const deleteButtons = this.container.querySelectorAll('button#delete')
+    if(deleteButtons){
+      for (var i = 0 ; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
+      }
+    }
+  }
+
+  handleDelete(e){
+    e.preventDefault()
+    const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+    const listItem = this.getReviewById(liId)
+    this.adapter.deleteReview(listItem)
+    e.target.parentNode.parentNode.remove()
   }
 
   reviewBindingsAndEventListeners() {
@@ -51,14 +63,9 @@ class ReviewPage extends PageManager{
 
   handleReviewClick(e) {
     if(e.target.tagName === 'A'){
-      const reviewId = e.target.dataset.id
+      const reviewId = e.target.parentNode.dataset.id
       const review = this.getReviewById(reviewId)
       this.renderReview(review)
-    } else {
-      if(e.target.tagName === 'I'){
-        const reviewId = e.target.dataset.id
-        let review = this.getReviewById(reviewId)
-      }
     }
   }
 
@@ -149,6 +156,7 @@ class ReviewPage extends PageManager{
        }
        try{
           await this.adapter.createReview(params)
+          this.reviews.push(params.review)
           this.redirect('review')
        }catch(err)  {
          this.handleError(err)
