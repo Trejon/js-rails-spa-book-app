@@ -2,12 +2,12 @@ class ReviewsController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        reviews = Review.all
+        reviews = current_user.reviews
         render json: reviews, include: [:book]
     end
 
     def show
-        review = Review.find(params[:id])
+        review = current_user.reviews.find(params[:id])
         authorize_user_resource(review)
         render_resource(review, with: [:book])
     end
@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
     def destroy
         review = Review.find(params[:id])
         authorize_user_resource(review)
-        review.destory
+        review.destroy
         render_resource(review)
     end
 

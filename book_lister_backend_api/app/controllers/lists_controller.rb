@@ -29,7 +29,7 @@ class ListsController < ApplicationController
     def destroy
         list = List.find(params[:id])
         authorize_user_resource(list)
-        list.destory
+        list.destroy
         render_resource(list)
     end
 
