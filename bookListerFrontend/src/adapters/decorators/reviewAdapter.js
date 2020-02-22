@@ -50,4 +50,16 @@ class ReviewAdapter{
         return await res.json()
       }
 
+      async deleteReview(params) {
+        const { rating, content, date, id} = params
+        const url = `${this.baseURL}/reviews/${id}`
+        const res = await fetch(url, {
+          method: 'DELETE',
+          headers: this.headers
+        })
+        await this.baseAdapter.checkStatus(res)
+        return await res.json()
+      }
+
+
 }
