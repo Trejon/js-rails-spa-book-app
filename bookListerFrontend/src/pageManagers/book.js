@@ -134,8 +134,8 @@ class BookPage extends PageManager{
       return this.books.find(a => a.id === id)
      })
       this.container.innerHTML += this.booksHTML(uniqueBooks)
-      this.container.innerHTML += `<h1>Add Finished Book To Collection</h1>`
-      this.renderNewForm()
+      // this.container.innerHTML += `<h1>Add Finished Book To Collection</h1>`
+      // this.renderNewForm()
     }
 
     booksHTML(books) {

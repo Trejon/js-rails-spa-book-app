@@ -17,26 +17,30 @@ class ProfilePage extends PageManager{
       const userBooks = this.container.querySelector('ul#books')
       userBooks.addEventListener('click', this.handleBookClick.bind(this))
 
-    //   const deleteButtons = this.container.querySelectorAll('button#delete')
-    //   if(deleteButtons){
-    //     for (var i = 0 ; i < deleteButtons.length; i++) {
-    //       deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
-    //     }
+      const deleteButtons = this.container.querySelectorAll('button#delete')
+      if(deleteButtons){
+        for (var i = 0 ; i < deleteButtons.length; i++) {
+          deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
+        }
     //
     //   // const userReviews = this.container.querySelector('ul#reviews')
     //   // userReviews.addEventListener('click', this.handleReviewClick.bind(this))
-    // }
+    }
   }
     //
-    // handleDelete(e){
-    //   debugger
-    //   e.preventDefault()
-    //   const liId = e.target.parentNode.parentNode.getAttribute('data-id')
-    //   if (e.target.parentNode.parentNode.parentNode.id == 'lists'){
-    //     const listItem = this.getListById(liId)
-    //     this.adapter.deleteList(listItem)
-    //   e.target.parentNode.parentNode.remove()
-    // }
+    handleDelete(e){
+      debugger
+      e.preventDefault()
+      const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+      if (e.target.parentNode.parentNode.parentNode.id == 'lists'){
+        const listItem = this.getListById(liId)
+        this.adapter.deleteList(listItem)
+      } else {
+        const listItem = this.getBookById(liId)
+        this.adapter.deleteBook(listItem)
+      }
+      e.target.parentNode.parentNode.remove()
+    }
 
     // listBindingsAndEventListeners() {
     //   const editButton = this.container.querySelector('button')

@@ -192,18 +192,17 @@ class ListPage extends PageManager{
          const genre = e.target.getElementsByTagName('textarea')[2].value
          const description = e.target.getElementsByTagName('textarea')[3].value
          const page_count = e.target.getElementsByTagName('input')[1].value
-         const list_id = e.target.getElementsByTagName('input')[0].value
-         const list = this.getListById(list_id)
+         const list_ids = e.target.getElementsByTagName('input')[0].value
+         const lists = this.getListById(list_ids)
          const params = {
              book: {
-                title, author, genre, description, page_count
+                title, author, genre, description, page_count, list_ids
              }
          }
          try{
             const book = await this.adapter.createBook(params)
-            list.books.push(book)
-            debugger
-            this.renderClickedList(list)
+            lists.books.push(book)
+            this.renderClickedList(lists)
          }catch(err)  {
            this.handleError(err)
          }
