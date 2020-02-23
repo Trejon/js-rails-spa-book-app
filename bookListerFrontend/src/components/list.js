@@ -47,7 +47,7 @@ class List{
             <button data-id=${this.id} id="edit-book">Edit</button>
             <button data-id=${this.id} id="delete-list">Delete</button>
             <h1>Books On This List:</h1>
-            <h3>${this.books.map(book => book.title)}</h3>
+            <h3>${this.books.map(book => book.title).join(', ')}</h3>
 
             <h1>Add Book You Want To Read To List</h1>
             <form id="new-book-form">

@@ -80,6 +80,7 @@ class Book{
       }
 
       get showHTML() {
+        debugger
         return (`
             <h2>Title: ${this.title}</h2>
             <h4>Author: ${this.author}</h4>
@@ -88,10 +89,13 @@ class Book{
             <h4>What's it about:<br><br> ${this.description}</h4>
             <button data-id=${this.id} id="edit-book">Edit</button>
 
-            <h1>Reviews For This Book:</h1>
-            <h3>Ratings: ${this.reviews ? this.reviews.map(review => review.rating).join(', ') : ''}</h3>
-            <h3>Reviews: ${this.reviews ? this.reviews.map(review => review.content).join(', ') : ''}</h3>
-            <h1>Add A Review For This Book:</h1>
+            <h1>Your Reviews for This Book: </h1>
+            <ul>
+            <li>Ratings: ${this.reviews.map(review => review.rating).join(',  ')}</li>
+            <li>Content: ${this.reviews.map(review => review.content).join('  -')}</li>
+            </ul>
+
+            <h1>Add Another Review:</h1>
             <form id="new-review-form">
               <input id="hidden" type='hidden' value="${this.id}">
                 <div class="form-row">
@@ -125,3 +129,6 @@ class Book{
         //     `)
         // }
     }
+    // <h1>Reviews For This Book:</h1>
+    // <h3>Ratings: ${this.reviews ? this.reviews.map(review => review.rating).join(' ') : ''}</h3>
+    // <h3>Reviews: ${this.reviews ? this.reviews.map(review => review.content).join(' ') : ''}</h3>

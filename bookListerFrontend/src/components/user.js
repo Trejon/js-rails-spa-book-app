@@ -10,6 +10,10 @@ class User{
     }
 
     get profileHTML() {
+      const uniqueBooks = Array.from(new Set(this.books.map(book => book.id)))
+        .map(id => {
+      return this.books.find(a => a.id === id)
+     })
       return (`
           <h2>Welcome ${this.name}!</h2>
 
@@ -20,7 +24,7 @@ class User{
 
           <h4>Books In Your Collection:</h4>
           <ul id="books">
-              ${this.books.map(book => book.profileLiAndLinkHTML).join('')}
+              ${uniqueBooks.map(book => book.profileLiAndLinkHTML).join('')}
           </ul>
         `)
     }
