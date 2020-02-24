@@ -30,27 +30,26 @@ class User{
 
     }
 
-
     get formHTML() {
         return List.formHTML(this)
       }
 
-      renderNewForm() {
-        this.container.innerHTML += `<form id="new-list-form">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Name"  required >
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="description">Description</label>
-                 <textarea class="form-control" id="description" rows="3"></textarea>
-              </div>
-            </div>
-          <button id="new-list" type="submit" class="btn btn-primary">Add New List</button>
-        </form>`
-      }
+      // renderNewForm() {
+      //   this.container.innerHTML += `<form id="new-list-form">
+      //       <div class="form-row">
+      //         <div class="form-group col-md-6">
+      //           <label for="name">Name</label>
+      //           <input type="text" class="form-control" id="name" placeholder="Name"  required >
+      //         </div>
+      //       </div>
+      //       <div class="form-row">
+      //         <div class="form-group col-md-6">
+      //           <label for="description">Description</label>
+      //            <textarea class="form-control" id="description" rows="3"></textarea>
+      //         </div>
+      //       </div>
+      //     <button id="new-list" type="submit" class="btn btn-primary">Add New List</button>
+      //   </form>`
+      // }
 
 }

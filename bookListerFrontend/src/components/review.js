@@ -27,6 +27,7 @@ class Review{
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
+                      <label for="date">Date Finished</label>
                        <input type="date" class="datepicker">
                     </div>
                   </div>
@@ -40,12 +41,12 @@ class Review{
         }
 
       get liAndLinkHTML() {
-        return `<br><li data-id=${this.id}><a href="#" id="reviews-list">${this.book.title}: <br>Rating: ${this.rating} - Content: ${this.content}</a><button id="delete" type="delete" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px" data-id=${this.id}>delete_forever</i></li>`
+        return `<br><li data-id=${this.id}><a href="#" id="reviews-list">${this.book.title}: <br>Rating: ${this.rating ? this.rating : 'None'} - Content: ${this.content ? this.content : 'None'}</a><button id="delete" type="delete" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px" data-id=${this.id}>delete_forever</i></li>`
       }
 
-      get profileLiAndLinkHTML() {
-          return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.rating} - ${this.content}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
-      }
+      // get profileLiAndLinkHTML() {
+      //     return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.rating ? this.rating : 'None'} - ${this.content ? this.content : 'None'}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
+      // }
 
       get profileShowHTML() {
         return (`
