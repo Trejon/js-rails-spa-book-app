@@ -102,7 +102,7 @@ class ReviewPage extends PageManager{
                 this.renderReview(review)
                 this.handleError(err)
             }
-            this.fetchAndRenderPageResources()
+            // this.fetchAndRenderPageResources()
       }
 
 
@@ -163,26 +163,27 @@ class ReviewPage extends PageManager{
        }
    }
 
-  renderNewForm() {
-    this.container.innerHTML += `<form id="new-review-form">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="rating">Rating</label>
-            <input type="text" class="form-control" id="rating" placeholder="Rating"  required >
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="content">Content</label>
-             <textarea class="form-control" id="content" rows="3"></textarea>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-             <input type="date" class="datepicker">
-          </div>
-        </div>
-      <button id="new-list" type="submit" class="btn btn-primary">Add New Review</button>
-    </form> `
-    }
+  // renderNewForm() {
+  //   this.container.innerHTML += review.formHTML()
+  //   // this.container.innerHTML += `<form id="new-review-form">
+  //   //     <div class="form-row">
+  //   //       <div class="form-group col-md-6">
+  //   //         <label for="rating">Rating</label>
+  //   //         <input type="text" class="form-control" id="rating" placeholder="Rating"  required >
+  //   //       </div>
+  //   //     </div>
+  //   //     <div class="form-row">
+  //   //       <div class="form-group col-md-6">
+  //   //         <label for="content">Content</label>
+  //   //          <textarea class="form-control" id="content" rows="3"></textarea>
+  //   //       </div>
+  //   //     </div>
+  //   //     <div class="form-row">
+  //   //       <div class="form-group col-md-6">
+  //   //          <input type="date" class="datepicker">
+  //   //       </div>
+  //   //     </div>
+  //   //   <button id="new-list" type="submit" class="btn btn-primary">Add New Review</button>
+  //   // </form> `
+  //   }
 }

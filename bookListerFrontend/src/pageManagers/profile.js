@@ -79,9 +79,9 @@ class ProfilePage extends PageManager{
           return this.user.books.find(book => book.id == id)
         }
 
-        getReviewById(id) {
-          return this.user.reviews.find(review => review.id == id)
-        }
+        // getReviewById(id) {
+        //   return this.user.reviews.find(review => review.id == id)
+        // }
 
         get staticHTML() {
           return (`

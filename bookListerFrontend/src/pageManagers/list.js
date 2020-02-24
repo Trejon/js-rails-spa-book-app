@@ -103,34 +103,17 @@ class ListPage extends PageManager{
               this.renderClickedList(list)
               this.handleError(err)
           }
-          this.fetchAndRenderPageResources()
     }
 
 
   renderNewForm() {
-    this.container.innerHTML += `<form id="new-list-form">
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Name"  required >
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="description">Description</label>
-             <textarea class="form-control" id="description" rows="3"></textarea>
-          </div>
-        </div>
-      <button id="new-list" type="submit" class="btn btn-primary">Add New List</button>
-    </form>
-    `
+    this.container.innerHTML += List.formHTML()
   }
 
  async handleListSubmit(e) {
       e.preventDefault()
-      const name = e.target.querySelector('input').value
-      const description = e.target.querySelector('textarea').value
+      const name = e.target.querySelector('#name').value
+      const description = e.target.querySelector('#description').value
       const params = {
           list: {
              name, description

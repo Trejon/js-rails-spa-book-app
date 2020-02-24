@@ -10,7 +10,6 @@ class BookPage extends PageManager{
     const form = this.container.querySelector('form')
     if (form){
     form.addEventListener('submit', this.handleBookSubmit.bind(this))}
-    // this.container.querySelector('a#books-list')}
 
     const booksList = this.container.querySelector('ul#books')
     if(booksList){
@@ -62,7 +61,6 @@ class BookPage extends PageManager{
              }catch(err)  {
                this.handleError(err)
              }
-             this.fetchAndRenderPageResources()
   }
 
   bookFormBindingsAndEventListeners() {
@@ -134,8 +132,6 @@ class BookPage extends PageManager{
       return this.books.find(a => a.id === id)
      })
       this.container.innerHTML += this.booksHTML(uniqueBooks)
-      // this.container.innerHTML += `<h1>Add Finished Book To Collection</h1>`
-      // this.renderNewForm()
     }
 
     booksHTML(books) {
@@ -148,27 +144,27 @@ class BookPage extends PageManager{
          `)
      }
 
-    async handleBookSubmit(e) {
-         e.preventDefault()
-         const title = e.target.getElementsByTagName('textarea')[0].value
-         const author = e.target.getElementsByTagName('textarea')[1].value
-         const genre = e.target.getElementsByTagName('textarea')[2].value
-         const description = e.target.getElementsByTagName('textarea')[3].value
-         const page_count = e.target.querySelector('input').value
-         const params = {
-             book: {
-                title, author, genre, description, page_count
-             }
-         }
-         try{
-            await this.adapter.createBook(params)
-            this.books.push(params.book)
-            this.redirect('book')
-         }catch(err)  {
-           this.handleError(err)
-         }
-         this.fetchAndRenderPageResources
-     }
+    // async handleBookSubmit(e) {
+    //      e.preventDefault()
+    //      const title = e.target.getElementsByTagName('textarea')[0].value
+    //      const author = e.target.getElementsByTagName('textarea')[1].value
+    //      const genre = e.target.getElementsByTagName('textarea')[2].value
+    //      const description = e.target.getElementsByTagName('textarea')[3].value
+    //      const page_count = e.target.querySelector('input').value
+    //      const params = {
+    //          book: {
+    //             title, author, genre, description, page_count
+    //          }
+    //      }
+    //      try{
+    //         await this.adapter.createBook(params)
+    //         this.books.push(params.book)
+    //         this.redirect('book')
+    //      }catch(err)  {
+    //        this.handleError(err)
+    //      }
+    //      // this.fetchAndRenderPageResources
+    //  }
 
      async handleUpdateBook(e){
            e.preventDefault()
@@ -197,45 +193,44 @@ class BookPage extends PageManager{
                  this.renderBook(book)
                  this.handleError(err)
              }
-             this.fetchAndRenderPageResources()
        }
 
-      renderNewForm() {
-        this.container.innerHTML += `
-          <form id="new-book-form">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="title">Title</label>
-                  <textarea class="form-control" id="title" rows="3"></textarea>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="author">Author</label>
-                  <textarea class="form-control" id="author" rows="3"></textarea>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="genre">Genre</label>
-                   <textarea class="form-control" id="genre" rows="3"></textarea>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="description">Description</label>
-                   <textarea class="form-control" id="description" rows="3"></textarea>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="page_count">Pages</label>
-                  <input type="text" class="form-control" id="page_count" placeholder="Pages" required >
-                </div>
-              </div>
-            <button type="submit" class="btn btn-primary">Add New Book</button>
-          </form>`
-      }
+      // renderNewForm() {
+      //   this.container.innerHTML += `
+      //     <form id="new-book-form">
+      //         <div class="form-row">
+      //           <div class="form-group col-md-6">
+      //             <label for="title">Title</label>
+      //             <textarea class="form-control" id="title" rows="3"></textarea>
+      //           </div>
+      //         </div>
+      //         <div class="form-row">
+      //           <div class="form-group col-md-6">
+      //             <label for="author">Author</label>
+      //             <textarea class="form-control" id="author" rows="3"></textarea>
+      //           </div>
+      //         </div>
+      //         <div class="form-row">
+      //           <div class="form-group col-md-6">
+      //             <label for="genre">Genre</label>
+      //              <textarea class="form-control" id="genre" rows="3"></textarea>
+      //           </div>
+      //         </div>
+      //         <div class="form-row">
+      //           <div class="form-group col-md-6">
+      //             <label for="description">Description</label>
+      //              <textarea class="form-control" id="description" rows="3"></textarea>
+      //           </div>
+      //         </div>
+      //         <div class="form-row">
+      //           <div class="form-group col-md-6">
+      //             <label for="page_count">Pages</label>
+      //             <input type="text" class="form-control" id="page_count" placeholder="Pages" required >
+      //           </div>
+      //         </div>
+      //       <button type="submit" class="btn btn-primary">Add New Book</button>
+      //     </form>`
+      // }
 
 
 }
