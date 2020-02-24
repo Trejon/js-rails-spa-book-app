@@ -70,14 +70,14 @@ class ListAdapter{
       return await res.json()
     }
 
-    async deleteList(params) {
-      const { name, description, id} = params
-      const url = `${this.baseURL}/lists/${id}`
-      const res = await fetch(url, {
-        method: 'DELETE',
-        headers: this.headers
-      })
-      await this.baseAdapter.checkStatus(res)
-      return await res.json()
-    }
+    // async deleteList(params) {
+    //   const { name, description, id} = params
+    //   const url = `${this.baseURL}/lists/${id}`
+    //   const res = await fetch(url, {
+    //     method: 'DELETE',
+    //     headers: this.headers
+    //   })
+    //   await this.baseAdapter.checkStatus(res)
+    //   return await res.json()
+    // }
   }

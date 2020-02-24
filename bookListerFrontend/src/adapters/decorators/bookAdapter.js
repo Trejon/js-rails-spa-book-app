@@ -42,15 +42,15 @@ class BookAdapter{
       return await res.json()
   }
 
-  async createBook(params) {
-    const res = await fetch(`${this.baseURL}/books`, {
-      method: 'POST',
-      headers: this.headers,
-      body: JSON.stringify(params)
-    })
-    await this.baseAdapter.checkStatus(res)
-    return await res.json()
-  }
+  // async createBook(params) {
+  //   const res = await fetch(`${this.baseURL}/books`, {
+  //     method: 'POST',
+  //     headers: this.headers,
+  //     body: JSON.stringify(params)
+  //   })
+  //   await this.baseAdapter.checkStatus(res)
+  //   return await res.json()
+  // }
 
   async createReview(params) {
     const res = await fetch(`${this.baseURL}/reviews`, {
