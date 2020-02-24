@@ -70,7 +70,7 @@ class BookAdapter{
       headers: this.headers
     })
     await this.baseAdapter.checkStatus(res)
-    return await res.json()
+    // return await res.json()
   }
 
 
