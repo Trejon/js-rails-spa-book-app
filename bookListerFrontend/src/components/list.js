@@ -35,8 +35,8 @@ class List{
 
         get profileShowHTML() {
           return (`
-              <h1>List: ${this.name}</h1>
-              <p>Description:\n${this.description ? this.description : "None"}</p>
+              <h1>List Name: ${this.name}</h1>
+              <h3>Description:<br>${this.description ? this.description : "None"}</>
               `)}
 
 
@@ -44,8 +44,7 @@ class List{
         return (`
             <h1>List: ${this.name}</h1>
             <p>Description:\n${this.description ? this.description : "None"}</p>
-            <button data-id=${this.id} id="edit-book">Edit</button>
-            <button data-id=${this.id} id="delete-list">Delete</button>
+            <button data-id=${this.id} id="edit-list">Edit</button>
             <h1>Books On This List:</h1>
             <h3>${this.books.map(book => book.title).join(', ')}</h3>
 

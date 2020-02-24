@@ -75,12 +75,11 @@ class Book{
               <h4>Author: ${this.author}</h4>
               <h4>Genre: ${this.genre}</h4>
               <h4>Pages: ${this.page_count}</h4>
-              <h4>What's it about:<br><br> ${this.description}</h4>
+              <h4>What it about:<br><br> ${this.description}</h4>
               `)
       }
 
       get showHTML() {
-        debugger
         return (`
             <h2>Title: ${this.title}</h2>
             <h4>Author: ${this.author}</h4>
@@ -120,15 +119,4 @@ class Book{
             </form>
           `)
         }
-
-        // get bookReviews(){
-        //   return (`
-        //     <h1>Reviews For This Book:</h1>
-        //     <h3>Ratings: ${this.reviews.map(review => review.rating)}</h3>
-        //     <h3>Reviews: ${this.reviews.map(review => review.content)}</h3>
-        //     `)
-        // }
-    }
-    // <h1>Reviews For This Book:</h1>
-    // <h3>Ratings: ${this.reviews ? this.reviews.map(review => review.rating).join(' ') : ''}</h3>
-    // <h3>Reviews: ${this.reviews ? this.reviews.map(review => review.content).join(' ') : ''}</h3>
+  }

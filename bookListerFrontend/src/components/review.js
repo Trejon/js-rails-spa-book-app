@@ -59,8 +59,8 @@ class Review{
       get showHTML() {
         return (`
             <h1>Book: ${this.book.title}</h1>
-            <h2>Rating: ${this.rating}</h2>
-            <h4>Content: ${this.content}</h4>
+            <h2>Rating: ${this.rating ? this.rating : "None"}</h2>
+            <h4>Content: ${this.content ? this.content : "None"}</h4>
             <h4>Date Finished: ${new Date(this.date).toDateString()}</h4>
             <button data-id=${this.id} id="edit-review">Edit</button>
           `)
