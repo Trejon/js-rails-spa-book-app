@@ -29,8 +29,9 @@ class BooksController < ApplicationController
     def destroy
         book = Book.find(params[:id])
         # authorize_user_resource(book)
+        
         book.destroy
-        render_resource(book)
+        # render_resource(book)
     end
 
   private
