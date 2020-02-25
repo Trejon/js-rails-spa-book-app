@@ -25,8 +25,9 @@ class ReviewPage extends PageManager{
 
   handleDelete(e){
     e.preventDefault()
-    const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+    const liId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'))
     const listItem = this.getReviewById(liId)
+    this.reviews = this.reviews.filter(review => review.id != liId)
     this.adapter.deleteReview(listItem)
     e.target.parentNode.parentNode.remove()
   }
@@ -102,7 +103,6 @@ class ReviewPage extends PageManager{
                 this.renderReview(review)
                 this.handleError(err)
             }
-            // this.fetchAndRenderPageResources()
       }
 
 
@@ -131,8 +131,6 @@ class ReviewPage extends PageManager{
     return this.reviews.find(a => a.id === id)
    })
     this.container.innerHTML += this.reviewsHTML(uniqueReviews)
-    // this.container.innerHTML += `<h1>Add New Review</h1>`
-    // this.renderNewForm()
   }
 
   reviewsHTML(reviews) {
@@ -162,28 +160,4 @@ class ReviewPage extends PageManager{
          this.handleError(err)
        }
    }
-
-  // renderNewForm() {
-  //   this.container.innerHTML += review.formHTML()
-  //   // this.container.innerHTML += `<form id="new-review-form">
-  //   //     <div class="form-row">
-  //   //       <div class="form-group col-md-6">
-  //   //         <label for="rating">Rating</label>
-  //   //         <input type="text" class="form-control" id="rating" placeholder="Rating"  required >
-  //   //       </div>
-  //   //     </div>
-  //   //     <div class="form-row">
-  //   //       <div class="form-group col-md-6">
-  //   //         <label for="content">Content</label>
-  //   //          <textarea class="form-control" id="content" rows="3"></textarea>
-  //   //       </div>
-  //   //     </div>
-  //   //     <div class="form-row">
-  //   //       <div class="form-group col-md-6">
-  //   //          <input type="date" class="datepicker">
-  //   //       </div>
-  //   //     </div>
-  //   //   <button id="new-list" type="submit" class="btn btn-primary">Add New Review</button>
-  //   // </form> `
-  //   }
 }
