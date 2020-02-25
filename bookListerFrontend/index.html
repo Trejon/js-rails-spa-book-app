@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet" />
+   <link rel="stylesheet" type="text/css" href="styles/style.css" /> -->
+   <!-- font awesome -->
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+ <!--Import Google Icon Font-->
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <!-- Compiled and minified CSS -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+ <script src="src/router.js"></script>
+  <script src="src/components/alert.js"></script>
+  <script src="src/components/list.js"></script>
+  <script src="src/components/review.js  "></script>
+  <script src="src/components/book.js"></script>
+  <script src="src/components/user.js"></script>
+  <script src="src/adapters/decorators/loginAdapter.js"></script>
+  <script src="src/adapters/decorators/signupAdapter.js"></script>
+  <script src="src/adapters/decorators/profileAdapter.js"></script>
+  <script src="src/adapters/decorators/bookAdapter.js"></script>
+  <script src="src/adapters/decorators/reviewAdapter.js"></script>
+  <script src="src/adapters/decorators/listAdapter.js"></script>
+
+  <script src="src/adapters/baseAdapter.js"></script>
+  <script src="src/pageManagers/pageManager.js"></script>
+  <script src="src/pageManagers/review.js"></script>
+  <script src="src/pageManagers/list.js"></script>
+  <script src="src/pageManagers/book.js"></script>
+  <script src="src/pageManagers/navbar.js"></script>
+  <script src="src/pageManagers/profile.js"></script>
+  <script src="src/pageManagers/welcome.js"></script>
+  <script src="src/pageManagers/login.js"></script>
+  <script src="src/pageManagers/signup.js"></script>
+  <script src="src/components/app.js"></script>
+  <script src="src/index.js"></script>
+
+
+  <title>Book Lister</title>
+</head>
+<body>
+    <div id="app-container">
+        <div id="alert-container">
+
+        </div>
+        <div id="navbar-container">
+
+        </div>
+
+
+        <div id="page-container" class="container">
+          
+        </div>
+
+        </div>
+    </div>
+    <br />
+    <div class="parallax-container">
+        <div class="parallax">
+          <img src="img/books.jpeg" alt="" class="responsive-img">
+        </div>
+      </div>
+
+
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+      <script>
+        $(document).ready(function(){
+          $('.parallax').parallax();
+        });
+      </script>
+
+
+      <footer class="footer">
+         <p>&copy Book-Lister, Inc</p>
+       </footer>
+</body>
+</html>
