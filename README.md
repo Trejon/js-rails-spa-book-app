@@ -21,3 +21,4 @@ If the database was seeded you can login to the seed user by using the info foun
 Pull requests are welcome, for changes please open an issue first.
 
 ## License
+ [MIT](https://choosealicense.com/licenses/mit/)
