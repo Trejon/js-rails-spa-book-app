@@ -25,8 +25,9 @@ class ReviewPage extends PageManager{
 
   handleDelete(e){
     e.preventDefault()
-    const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+    const liId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'))
     const listItem = this.getReviewById(liId)
+    this.reviews = this.reviews.filter(review => review.id != liId)
     this.adapter.deleteReview(listItem)
     e.target.parentNode.parentNode.remove()
   }
@@ -84,7 +85,6 @@ class ReviewPage extends PageManager{
     async handleUpdateReview(e) {
           e.preventDefault()
           const [id, date] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)
-          debugger
           const [rating, content] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
 
           const params = { rating, content, date, id }
@@ -93,7 +93,6 @@ class ReviewPage extends PageManager{
             review.rating = rating
             review.content = content
             review.date = date
-            debugger
             this.renderReview(review)
             try{
                 const {id, rating, content, date} = await this.adapter.updateReview(params)
@@ -148,7 +147,6 @@ class ReviewPage extends PageManager{
        const rating = e.target.querySelectorAll('input')[0].value
        const content = e.target.querySelector('textarea').value
        const date = e.target.querySelectorAll('input')[1].value
-       debugger
        const params = {
            review: {
               rating, content, date
