@@ -24,8 +24,9 @@ class ListPage extends PageManager{
 
     handleDelete(e){
       e.preventDefault()
-      const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+      const liId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'))
       const listItem = this.getListById(liId)
+      this.lists = this.lists.filter(list => list.id != liId)
       this.adapter.deleteList(listItem)
       e.target.parentNode.parentNode.remove()
     }

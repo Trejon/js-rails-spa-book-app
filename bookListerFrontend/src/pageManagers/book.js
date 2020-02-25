@@ -25,8 +25,9 @@ class BookPage extends PageManager{
 
   handleDelete(e){
     e.preventDefault()
-    const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+    const liId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'))
     const listItem = this.getBookById(liId)
+    this.books = this.books.filter(book => book.id != liId)
     this.adapter.deleteBook(listItem)
     e.target.parentNode.parentNode.remove()
   }
