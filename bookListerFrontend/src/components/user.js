@@ -27,7 +27,6 @@ class User{
               ${uniqueBooks.map(book => book.profileLiAndLinkHTML).join('')}
           </ul>
         `)
-
     }
 
     get formHTML() {
