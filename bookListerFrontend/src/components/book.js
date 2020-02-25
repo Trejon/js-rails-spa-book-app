@@ -88,7 +88,7 @@ class Book{
             <h4>What's it about:<br><br> ${this.description}</h4>
             <button data-id=${this.id} id="edit-book">Edit</button>
 
-            <h1>Your Reviews for This Book: </h1>
+            <h1>All Your Reviews for This Book: </h1>
             <ul>
             <li>Ratings: ${this.reviews.map(review => review.rating).join(',  ')}</li>
             <li>Content: ${this.reviews.map(review => review.content).join('  -')}</li>

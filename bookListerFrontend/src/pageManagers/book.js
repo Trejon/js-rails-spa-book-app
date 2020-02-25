@@ -57,8 +57,8 @@ class BookPage extends PageManager{
              try{
               const review = await this.adapter.createReview(params)
                 book.reviews.push(review)
+                debugger
                 this.renderBook(book)
-                // this.redirect('book')
              }catch(err)  {
                this.handleError(err)
              }
@@ -145,28 +145,6 @@ class BookPage extends PageManager{
          `)
      }
 
-    // async handleBookSubmit(e) {
-    //      e.preventDefault()
-    //      const title = e.target.getElementsByTagName('textarea')[0].value
-    //      const author = e.target.getElementsByTagName('textarea')[1].value
-    //      const genre = e.target.getElementsByTagName('textarea')[2].value
-    //      const description = e.target.getElementsByTagName('textarea')[3].value
-    //      const page_count = e.target.querySelector('input').value
-    //      const params = {
-    //          book: {
-    //             title, author, genre, description, page_count
-    //          }
-    //      }
-    //      try{
-    //         await this.adapter.createBook(params)
-    //         this.books.push(params.book)
-    //         this.redirect('book')
-    //      }catch(err)  {
-    //        this.handleError(err)
-    //      }
-    //      // this.fetchAndRenderPageResources
-    //  }
-
      async handleUpdateBook(e){
            e.preventDefault()
            const id = this.container.querySelector('#hidden').value
@@ -195,43 +173,4 @@ class BookPage extends PageManager{
                  this.handleError(err)
              }
        }
-
-      // renderNewForm() {
-      //   this.container.innerHTML += `
-      //     <form id="new-book-form">
-      //         <div class="form-row">
-      //           <div class="form-group col-md-6">
-      //             <label for="title">Title</label>
-      //             <textarea class="form-control" id="title" rows="3"></textarea>
-      //           </div>
-      //         </div>
-      //         <div class="form-row">
-      //           <div class="form-group col-md-6">
-      //             <label for="author">Author</label>
-      //             <textarea class="form-control" id="author" rows="3"></textarea>
-      //           </div>
-      //         </div>
-      //         <div class="form-row">
-      //           <div class="form-group col-md-6">
-      //             <label for="genre">Genre</label>
-      //              <textarea class="form-control" id="genre" rows="3"></textarea>
-      //           </div>
-      //         </div>
-      //         <div class="form-row">
-      //           <div class="form-group col-md-6">
-      //             <label for="description">Description</label>
-      //              <textarea class="form-control" id="description" rows="3"></textarea>
-      //           </div>
-      //         </div>
-      //         <div class="form-row">
-      //           <div class="form-group col-md-6">
-      //             <label for="page_count">Pages</label>
-      //             <input type="text" class="form-control" id="page_count" placeholder="Pages" required >
-      //           </div>
-      //         </div>
-      //       <button type="submit" class="btn btn-primary">Add New Book</button>
-      //     </form>`
-      // }
-
-
 }

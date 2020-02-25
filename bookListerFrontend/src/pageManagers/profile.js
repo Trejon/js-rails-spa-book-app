@@ -26,12 +26,14 @@ class ProfilePage extends PageManager{
   }
     handleDelete(e){
       e.preventDefault()
-      const liId = e.target.parentNode.parentNode.getAttribute('data-id')
+      const liId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'))
       if (e.target.parentNode.parentNode.parentNode.id == 'lists'){
         const listItem = this.getListById(liId)
+        this.user.lists = this.user.lists.filter(list => list.id != liId)
         this.adapter.deleteList(listItem)
       } else {
         const listItem = this.getBookById(liId)
+        this.user.books = this.user.books.filter(book => book.id != liId)
         this.adapter.deleteBook(listItem)
       }
       e.target.parentNode.parentNode.remove()
@@ -78,10 +80,6 @@ class ProfilePage extends PageManager{
         getBookById(id) {
           return this.user.books.find(book => book.id == id)
         }
-
-        // getReviewById(id) {
-        //   return this.user.reviews.find(review => review.id == id)
-        // }
 
         get staticHTML() {
           return (`
