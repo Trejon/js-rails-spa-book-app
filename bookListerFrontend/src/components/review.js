@@ -44,10 +44,6 @@ class Review{
         return `<br><li data-id=${this.id}><a href="#" id="reviews-list">${this.book.title}: <br>Rating: ${this.rating ? this.rating : 'None'} - Content: ${this.content ? this.content : 'None'}</a><button id="delete" type="delete" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px" data-id=${this.id}>delete_forever</i></li>`
       }
 
-      // get profileLiAndLinkHTML() {
-      //     return `<br><li data-id=${this.id}><a href="#" id="books-list">${this.rating ? this.rating : 'None'} - ${this.content ? this.content : 'None'}</a><button id="delete" type="submit" class="btn-floating btn waves-effect waves-light light-blue lighten-2 right"><i class="material-icons" style="font-size: 20px">delete_forever</i></li>`
-      // }
-
       get profileShowHTML() {
         return (`
             <h2>Rating: ${this.rating}</h2>
@@ -58,11 +54,12 @@ class Review{
         }
 
       get showHTML() {
+        const utcDate = new Date(this.date)
         return (`
             <h1>Book: ${this.book.title}</h1>
             <h2>Rating: ${this.rating ? this.rating : "None"}</h2>
             <h4>Content: ${this.content ? this.content : "None"}</h4>
-            <h4>Date Finished: ${new Date(this.date).toDateString()}</h4>
+            <h4>Date Finished: ${new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000)}</h4>
             <button data-id=${this.id} id="edit-review">Edit</button>
           `)
         }
