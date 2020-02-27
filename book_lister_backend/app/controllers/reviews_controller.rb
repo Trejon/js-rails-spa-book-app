@@ -3,13 +3,13 @@ class ReviewsController < ApplicationController
 
     def index
         reviews = current_user.reviews
-        render json: reviews, include: [:book]
+        render json: reviews, include: [:book, :user]
     end
 
     def show
         review = current_user.reviews.find(params[:id])
         authorize_user_resource(review)
-        render_resource(review, with: [:book])
+        render_resource(review, with: [:book, :user])
     end
 
     def create

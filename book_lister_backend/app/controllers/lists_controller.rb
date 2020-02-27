@@ -7,7 +7,7 @@ class ListsController < ApplicationController
     end
 
     def show
-        list = List.find(params[:id])
+        list = current_user.lists.find(params[:id])
         authorize_user_resource(list)
         render_resource(list, with: [:books])
     end

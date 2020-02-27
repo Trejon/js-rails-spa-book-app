@@ -62,15 +62,17 @@ class ReviewPage extends PageManager{
     return this.reviews.find(review => review.id == id)
   }
 
-  handleReviewClick(e) {
+  async handleReviewClick(e) {
     if(e.target.tagName === 'A'){
       const reviewId = e.target.parentNode.dataset.id
-      const review = this.getReviewById(reviewId)
-      this.renderReview(review)
+      const reviewObj = await this.adapter.getReviewById(reviewId)
+      this.review = new Review(reviewObj)
+      this.renderReview(this.review)
     }
   }
 
   renderReview(review){
+    debugger
       if(review){
         this.container.innerHTML = review.showHTML
         this.reviewBindingsAndEventListeners()

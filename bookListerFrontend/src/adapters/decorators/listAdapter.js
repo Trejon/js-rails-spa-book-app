@@ -21,6 +21,16 @@ class ListAdapter{
       return await res.json()
     }
 
+    async getListById(params) {
+        const id = parseInt(params)
+        const url = `${this.baseURL}/lists/${id}`
+        const res = await fetch(url, {
+            headers: this.headers
+        })
+        await this.baseAdapter.checkStatus(res)
+        return await res.json()
+      }
+
     async createList(params) {
       const res = await fetch(`${this.baseURL}/lists`, {
         method: 'POST',

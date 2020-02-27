@@ -21,7 +21,6 @@ class ListPage extends PageManager{
         deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this))}}
   }
 
-
     handleDelete(e){
       e.preventDefault()
       const liId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'))
@@ -31,11 +30,12 @@ class ListPage extends PageManager{
       e.target.parentNode.parentNode.remove()
     }
 
-  handleListClick(e) {
+  async handleListClick(e) {
     if(e.target.tagName === 'A'){
       const listId = e.target.parentNode.dataset.id
-      const list = this.getListById(listId)
-      this.renderClickedList(list)
+      const listObj = await this.adapter.getListById(listId)
+      this.list = new List(listObj)
+      this.renderClickedList(this.list)
       }
   }
 

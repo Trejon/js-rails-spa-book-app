@@ -21,6 +21,16 @@ class ReviewAdapter{
       return await res.json()
     }
 
+    async getReviewById(params) {
+        const id = parseInt(params)
+        const url = `${this.baseURL}/reviews/${id}`
+        const res = await fetch(url, {
+            headers: this.headers
+        })
+        await this.baseAdapter.checkStatus(res)
+        return await res.json()
+      }
+
     async updateReview(params) {
         const { rating, content, date, id} = params
         const url = `${this.baseURL}/reviews/${id}`
