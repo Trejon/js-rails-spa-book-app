@@ -57,7 +57,6 @@ class BookPage extends PageManager{
              try{
               const review = await this.adapter.createReview(params)
                 book.reviews.push(review)
-                debugger
                 this.renderBook(book)
              }catch(err)  {
                this.handleError(err)
@@ -84,15 +83,17 @@ class BookPage extends PageManager{
         }
   }
 
-  handleBookClick(e) {
+  async handleBookClick(e) {
     if(e.target.tagName === 'A'){
       const bookId = e.target.parentNode.dataset.id
-      const book = this.getBookById(bookId)
-      this.renderBook(book)
+      const bookObj = await this.adapter.getBookById(bookId)
+      this.book = new Book(bookObj)
+      this.renderBook(this.book)
       }
     }
 
     renderBook(book) {
+      debugger
       if(book){
         this.container.innerHTML = book.showHTML
         this.bookBindingsAndEventListeners()

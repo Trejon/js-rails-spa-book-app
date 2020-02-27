@@ -3,27 +3,41 @@ class ProfilePage extends PageManager{
     constructor(container, adapter){
         super(container)
         this.adapter = new ProfileAdapter(adapter);
-        this.user = null;
+        // this.user = null;
     }
 
     initBindingsAndEventListeners() {
-      return null
-    }
+        const userLists = this.container.querySelector('ul#lists')
+        if(userLists){
+        userLists.addEventListener('click', this.handleListClick.bind(this))}
 
-    profileBindingAndEventListeners() {
-      const userList = this.container.querySelector('ul#lists')
-      userList.addEventListener('click', this.handleListClick.bind(this))
+        const userBooks = this.container.querySelector('ul#books')
+        if(userBooks){
+        userBooks.addEventListener('click', this.handleBookClick.bind(this))}
 
-      const userBooks = this.container.querySelector('ul#books')
-      userBooks.addEventListener('click', this.handleBookClick.bind(this))
-
-      const deleteButtons = this.container.querySelectorAll('button#delete')
-      if(deleteButtons){
-        for (var i = 0 ; i < deleteButtons.length; i++) {
-          deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
+        const deleteButtons = this.container.querySelectorAll('button#delete')
+        if(deleteButtons){
+          for (var i = 0 ; i < deleteButtons.length; i++) {
+            deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false);
+          }
         }
     }
-  }
+
+  //   profileBindingAndEventListeners() {
+  //   //   const userLists = this.container.querySelector('ul#lists')
+  //   //   userLists.addEventListener('click', this.handleListClick.bind(this))
+  //   //
+  //   //   const userBooks = this.container.querySelector('ul#books')
+  //   //   userBooks.addEventListener('click', this.handleBookClick.bind(this))
+  //   //
+  //   //   const deleteButtons = this.container.querySelectorAll('button#delete')
+  //   //   if(deleteButtons){
+  //   //     for (var i = 0 ; i < deleteButtons.length; i++) {
+  //   //       deleteButtons[i].addEventListener('click' , this.handleDelete.bind(this), false ) ;
+  //   //     }
+  //   // }
+  // }
+
     handleDelete(e){
       e.preventDefault()
       const liId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'))
@@ -55,13 +69,13 @@ class ProfilePage extends PageManager{
       }
     }
 
-    handleReviewClick(e) {
-      if(e.target.tagName === 'A'){
-        const reviewId = e.target.parentNode.getAttribute('data-id')
-        const review = this.getReviewById(reviewId)
-        this.renderReview(review)
-      }
-    }
+    // handleReviewClick(e) {
+    //   if(e.target.tagName === 'A'){
+    //     const reviewId = e.target.parentNode.getAttribute('data-id')
+    //     const review = this.getReviewById(reviewId)
+    //     this.renderReview(review)
+    //   }
+    // }
 
         async fetchAndRenderPageResources() {
           try {
@@ -104,24 +118,25 @@ class ProfilePage extends PageManager{
           } else {
               this.handleError({
                 type: "404 Not Found",
-                msg: "List was not found"
+                msg: "Book was not found"
               })
           }
         }
 
-        renderReview(review){
-          if(review){
-            this.container.innerHTML = review.profileShowHTML
-          } else {
-              this.handleError({
-                type: "404 Not Found",
-                msg: "List was not found"
-              })
-          }
-        }
+        // renderReview(review){
+        //   if(review){
+        //     this.container.innerHTML = review.profileShowHTML
+        //   } else {
+        //       this.handleError({
+        //         type: "404 Not Found",
+        //         msg: "List was not found"
+        //       })
+        //   }
+        // }
 
         renderUser() {
           this.container.innerHTML = this.user.profileHTML
-          this.profileBindingAndEventListeners()
+          // this.profileBindingAndEventListeners()
+          this.initBindingsAndEventListeners()
         }
 }

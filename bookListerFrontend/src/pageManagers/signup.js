@@ -8,7 +8,6 @@ class SignupPage extends PageManager{
   initBindingsAndEventListeners() {
       this.form = this.container.querySelector('#signup-form')
 
-
       this.form.addEventListener('submit', this.handleSubmit.bind(this))
     }
 

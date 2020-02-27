@@ -42,5 +42,5 @@ class LoginPage extends PageManager{
         <button type="submit" class="btn btn-primary">Sign in</button>
         </form>
         `)
-  }
-}
+      }
+    }
