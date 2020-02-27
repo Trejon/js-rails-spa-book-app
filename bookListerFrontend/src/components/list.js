@@ -5,7 +5,7 @@ class List{
         this.name = name
         this.description = description
         this.books = books
-        this.lists = []
+        // this.lists = []
       }
 
     static formHTML(list) {

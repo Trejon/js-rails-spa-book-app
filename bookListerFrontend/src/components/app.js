@@ -1,11 +1,8 @@
 class App{
+  
   constructor(){
-    
-
     this.adapter = new BaseAdapter()
-
     this.initBindingsAndEventListeners()
-
     this.alertManager = new Alert(this.alertContainer)
 
     this.router = new Router({
