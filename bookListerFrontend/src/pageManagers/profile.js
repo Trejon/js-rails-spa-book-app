@@ -69,13 +69,13 @@ class ProfilePage extends PageManager{
       }
     }
 
-    handleReviewClick(e) {
-      if(e.target.tagName === 'A'){
-        const reviewId = e.target.parentNode.getAttribute('data-id')
-        const review = this.getReviewById(reviewId)
-        this.renderReview(review)
-      }
-    }
+    // handleReviewClick(e) {
+    //   if(e.target.tagName === 'A'){
+    //     const reviewId = e.target.parentNode.getAttribute('data-id')
+    //     const review = this.getReviewById(reviewId)
+    //     this.renderReview(review)
+    //   }
+    // }
 
         async fetchAndRenderPageResources() {
           try {
@@ -118,21 +118,21 @@ class ProfilePage extends PageManager{
           } else {
               this.handleError({
                 type: "404 Not Found",
-                msg: "List was not found"
+                msg: "Book was not found"
               })
           }
         }
 
-        renderReview(review){
-          if(review){
-            this.container.innerHTML = review.profileShowHTML
-          } else {
-              this.handleError({
-                type: "404 Not Found",
-                msg: "List was not found"
-              })
-          }
-        }
+        // renderReview(review){
+        //   if(review){
+        //     this.container.innerHTML = review.profileShowHTML
+        //   } else {
+        //       this.handleError({
+        //         type: "404 Not Found",
+        //         msg: "List was not found"
+        //       })
+        //   }
+        // }
 
         renderUser() {
           this.container.innerHTML = this.user.profileHTML
