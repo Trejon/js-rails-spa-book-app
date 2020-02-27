@@ -20,6 +20,5 @@ class Alert {
         this.timeout = setTimeout(() => {
           this.container.innerHTML = ''
         }, timeout)
-
         }
   }
