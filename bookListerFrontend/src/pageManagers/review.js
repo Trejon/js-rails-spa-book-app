@@ -72,7 +72,6 @@ class ReviewPage extends PageManager{
   }
 
   renderReview(review){
-    debugger
       if(review){
         this.container.innerHTML = review.showHTML
         this.reviewBindingsAndEventListeners()

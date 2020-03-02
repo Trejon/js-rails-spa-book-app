@@ -44,8 +44,7 @@ class BookPage extends PageManager{
 
   async handleReviewSubmit(e) {
       e.preventDefault()
-        const book_id = e.target.querySelectorAll('input')[0].value
-        const book = this.getBookById(book_id)
+        const book_id = this.book.id
         const rating = e.target.querySelectorAll('input')[1].value
         const content = e.target.querySelector('textarea').value
         const date = e.target.querySelectorAll('input')[2].value
@@ -56,8 +55,8 @@ class BookPage extends PageManager{
              }
              try{
               const review = await this.adapter.createReview(params)
-                book.reviews.push(review)
-                this.renderBook(book)
+                this.book.reviews.push(review)
+                this.renderBook(this.book)
              }catch(err)  {
                this.handleError(err)
              }
@@ -93,7 +92,6 @@ class BookPage extends PageManager{
     }
 
     renderBook(book) {
-      debugger
       if(book){
         this.container.innerHTML = book.showHTML
         this.bookBindingsAndEventListeners()

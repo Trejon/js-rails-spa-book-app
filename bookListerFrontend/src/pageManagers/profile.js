@@ -53,21 +53,23 @@ class ProfilePage extends PageManager{
       e.target.parentNode.parentNode.remove()
     }
 
-    handleListClick(e) {
+    async handleListClick(e) {
       if(e.target.tagName === 'A'){
-        const listId = e.target.parentNode.getAttribute('data-id')
-        const list = this.getListById(listId)
-        this.renderList(list)
-      }
+        const listId = e.target.parentNode.dataset.id
+        const listObj = await this.adapter.getListById(listId)
+        this.list = new List(listObj)
+        this.renderList(this.list)
+        }
     }
 
-    handleBookClick(e) {
+    async handleBookClick(e) {
       if(e.target.tagName === 'A'){
-        const bookId = e.target.parentNode.getAttribute('data-id')
-        const book = this.getBookById(bookId)
-        this.renderBook(book)
+        const bookId = e.target.parentNode.dataset.id
+        const bookObj = await this.adapter.getBookById(bookId)
+        this.book = new Book(bookObj)
+        this.renderBook(this.book)
+        }
       }
-    }
 
     // handleReviewClick(e) {
     //   if(e.target.tagName === 'A'){
