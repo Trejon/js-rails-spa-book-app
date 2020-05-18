@@ -4,7 +4,7 @@ class BaseAdapter{
     this.baseURL = baseURL;
     this.token = null;
   }
-
+ 
   get headers() {
     let baseHeaders = {
       'Accept': 'application/json',
