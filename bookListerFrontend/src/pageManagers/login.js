@@ -10,7 +10,7 @@ class LoginPage extends PageManager{
 
     this.form.addEventListener('submit', this.handleSubmit.bind(this))
   }
- 
+
   async handleSubmit(e){
       e.preventDefault()
       const [email, password] = Array.from(e.target.querySelectorAll('input')).map(input => input.value)

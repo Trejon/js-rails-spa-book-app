@@ -76,6 +76,7 @@ class Book{
               <h4>Genre: ${this.genre}</h4>
               <h4>Pages: ${this.page_count}</h4>
               <h4>What it about:<br><br> ${this.description}</h4>
+<<<<<<< HEAD
 
               <h1>Your Reviews for This Book: </h1>
               <ul>
@@ -88,6 +89,8 @@ class Book{
               <li>Name: ${this.lists.map(list => list.name).join(',  ')}</li>
               <li>Description: ${this.lists.map(list => list.description).join(',  ')}</li>
               </ul>
+=======
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
               `)
       }
 
@@ -100,18 +103,25 @@ class Book{
             <h4>What's it about:<br><br> ${this.description}</h4>
             <button data-id=${this.id} id="edit-book">Edit</button>
 
+<<<<<<< HEAD
             <h1>Your Reviews for This Book: </h1>
+=======
+            <h1>All Your Reviews for This Book: </h1>
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
             <ul>
             <li>Ratings: ${this.reviews.map(review => review.rating).join(',  ')}</li>
             <li>Content: ${this.reviews.map(review => review.content).join('  -')}</li>
             </ul>
 
+<<<<<<< HEAD
             <h1>Lists for This Book: </h1>
             <ul>
             <li>Name: ${this.lists.map(list => list.name).join(',  ')}</li>
             <li>Description: ${this.lists.map(list => list.description).join(',  ')}</li>
             </ul>
 
+=======
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
             <h1>Add Another Review:</h1>
             <form id="new-review-form">
               <input id="hidden" type='hidden' value="${this.id}">

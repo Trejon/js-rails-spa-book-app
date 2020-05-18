@@ -37,8 +37,11 @@ class List{
           return (`
               <h1>List Name: ${this.name}</h1>
               <h3>Description:<br>${this.description ? this.description : "None"}</>
+<<<<<<< HEAD
               <h3>Books on This List</h3>
               <h5>${this.books.map(book => book.title).join(', ')}</h5>
+=======
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
               `)}
 
 

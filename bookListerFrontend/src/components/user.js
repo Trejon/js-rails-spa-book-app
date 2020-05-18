@@ -19,12 +19,20 @@ class User{
 
           <h4>Your Created Lists:</h4>
           <ul id="lists">
+<<<<<<< HEAD
               ${this.lists.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).map(list => list.profileLiAndLinkHTML).join('')}
+=======
+              ${this.lists.map(list => list.profileLiAndLinkHTML).join('')}
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
           </ul>
 
           <h4>Books In Your Collection:</h4>
           <ul id="books">
+<<<<<<< HEAD
               ${uniqueBooks.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)).map(book => book.profileLiAndLinkHTML).join('')}
+=======
+              ${uniqueBooks.map(book => book.profileLiAndLinkHTML).join('')}
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
           </ul>
         `)
     }

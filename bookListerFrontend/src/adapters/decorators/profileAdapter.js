@@ -42,6 +42,7 @@ class ProfileAdapter{
         return await res.json()
       }
 
+<<<<<<< HEAD
       async getListById(params) {
           const id = parseInt(params)
           const url = `${this.baseURL}/lists/${id}`
@@ -62,4 +63,6 @@ class ProfileAdapter{
             return await res.json()
           }
 
+=======
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
   }

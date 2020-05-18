@@ -87,11 +87,19 @@ class ListPage extends PageManager{
 
   async handleUpdateList(e){
         e.preventDefault()
+<<<<<<< HEAD
         const id = this.list.id
         const [name, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
 
         const params = { name, description, id }
         const list = this.list
+=======
+        const id = e.target.querySelector('input').value
+        const [name, description] = Array.from(e.target.querySelectorAll('textarea')).map(input => input.value)
+
+        const params = { name, description, id }
+        const list = this.getListById(id)
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
         const oldList = new List({id, name, description})
           list.name = name
           list.description = description

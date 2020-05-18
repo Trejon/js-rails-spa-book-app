@@ -53,6 +53,7 @@ class ProfilePage extends PageManager{
       e.target.parentNode.parentNode.remove()
     }
 
+<<<<<<< HEAD
     async handleListClick(e) {
       if(e.target.tagName === 'A'){
         const listId = e.target.parentNode.dataset.id
@@ -70,6 +71,23 @@ class ProfilePage extends PageManager{
         this.renderBook(this.book)
         }
       }
+=======
+    handleListClick(e) {
+      if(e.target.tagName === 'A'){
+        const listId = e.target.parentNode.getAttribute('data-id')
+        const list = this.getListById(listId)
+        this.renderList(list)
+      }
+    }
+
+    handleBookClick(e) {
+      if(e.target.tagName === 'A'){
+        const bookId = e.target.parentNode.getAttribute('data-id')
+        const book = this.getBookById(bookId)
+        this.renderBook(book)
+      }
+    }
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
 
     // handleReviewClick(e) {
     //   if(e.target.tagName === 'A'){

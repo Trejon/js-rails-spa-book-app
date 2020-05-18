@@ -44,7 +44,12 @@ class BookPage extends PageManager{
 
   async handleReviewSubmit(e) {
       e.preventDefault()
+<<<<<<< HEAD
         const book_id = this.book.id
+=======
+        const book_id = e.target.querySelectorAll('input')[0].value
+        const book = this.getBookById(book_id)
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
         const rating = e.target.querySelectorAll('input')[1].value
         const content = e.target.querySelector('textarea').value
         const date = e.target.querySelectorAll('input')[2].value
@@ -55,8 +60,13 @@ class BookPage extends PageManager{
              }
              try{
               const review = await this.adapter.createReview(params)
+<<<<<<< HEAD
                 this.book.reviews.push(review)
                 this.renderBook(this.book)
+=======
+                book.reviews.push(review)
+                this.renderBook(book)
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
              }catch(err)  {
                this.handleError(err)
              }
@@ -92,6 +102,10 @@ class BookPage extends PageManager{
     }
 
     renderBook(book) {
+<<<<<<< HEAD
+=======
+      debugger
+>>>>>>> ccb61d97d80a6b40e144cda4719cfea4df171142
       if(book){
         this.container.innerHTML = book.showHTML
         this.bookBindingsAndEventListeners()
